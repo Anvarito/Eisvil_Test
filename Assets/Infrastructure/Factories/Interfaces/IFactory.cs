@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
-using Infrastructure.Services.StaticData.Level;
 
-namespace Infrastructure.Factories
+namespace Infrastructure.Factories.Interfaces
 {
     public interface IFactory
     {

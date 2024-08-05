@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Infrastructure.Factories;
 using Infrastructure.Services.Logging;
+using Infrastructure.States.Interfaces;
 
 namespace Infrastructure.States.StateMachines
 {

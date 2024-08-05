@@ -4,6 +4,6 @@ namespace Infrastructure.Factories.Interfaces
 {
     public interface IEnemyFactory : IFactory
     {
-        UniTask SpawnCargo();
+        UniTask SpawnEnemy();
     }
 }

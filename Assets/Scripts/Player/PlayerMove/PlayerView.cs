@@ -33,4 +33,9 @@ public class PlayerView : MonoBehaviour, IPlayerView
         if(!_controller.isGrounded)
         _controller.Move(Vector3.down * (-Physics.gravity.y * Time.deltaTime));
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        print("WAAWAWAW");
+    }
 }

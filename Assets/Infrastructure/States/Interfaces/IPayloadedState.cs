@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.States
+﻿namespace Infrastructure.States.Interfaces
 {
     public interface IPayloadedState<TPayload> : IExitableState
     {

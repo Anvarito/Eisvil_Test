@@ -24,5 +24,5 @@ namespace Infrastructure.SceneManagement
         // public void MoveGameObjectToScene(GameObject gameObject, Scene targetScene) => 
         //     SceneManager.MoveGameObjectToScene(gameObject, targetScene);
     }
-
 }
+

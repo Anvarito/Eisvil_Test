@@ -1,6 +1,4 @@
-﻿namespace Infrastructure.States.MainStates
-{
-    /*
+﻿    /*
     public class LoadProgressState : IState
     {
         private readonly MainStateMachine _stateMachine;
@@ -86,4 +84,3 @@
 
         #endregion
     }*/
-}

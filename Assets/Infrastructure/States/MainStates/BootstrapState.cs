@@ -1,4 +1,4 @@
-﻿
+﻿using Infrastructure.States.Interfaces;
 using Infrastructure.States.StateMachines;
 
 namespace Infrastructure.States.MainStates

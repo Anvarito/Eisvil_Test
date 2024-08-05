@@ -1,25 +1,25 @@
-using Infrastructure.Constants;
+
 using Infrastructure.Services.Assets;
-using Infrastructure.States.MainStates;
+using Infrastructure.States.Interfaces;
 using Infrastructure.States.StateMachines;
 
 namespace Infrastructure.States.InGameStates
 {
     public class GameVictory : IState
     {
-        private PlayerContoller _playerContoller;
+        private PlayerMoveContoller _playerMoveContoller;
         private IAssetLoader _assetLoader;
         private MainStateMachine _mainStateMachine;
 
         public GameVictory(
             MainStateMachine mainStateMachine
-            , PlayerContoller playerContoller
+            , PlayerMoveContoller playerMoveContoller
             , IAssetLoader assetLoader
         )
         {
             _mainStateMachine = mainStateMachine;
             _assetLoader = assetLoader;
-            _playerContoller = playerContoller;
+            _playerMoveContoller = playerMoveContoller;
         }
 
         public void Exit()
@@ -28,7 +28,7 @@ namespace Infrastructure.States.InGameStates
 
         public void Enter()
         {
-            _playerContoller.Dispose();
+            _playerMoveContoller.Dispose();
         }
 
         private void PressAccepted()

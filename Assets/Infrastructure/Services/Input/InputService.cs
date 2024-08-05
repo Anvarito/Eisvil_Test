@@ -1,20 +1,27 @@
+using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
+using Zenject;
 
 
 namespace Infrastructure.Services.Input
 {
-    public class InputService : IInputService
+    public class InputService : IInputService, ITickable
     {
+        public UnityAction<Vector3> OnInputDirection { get; set; }
+        
+        public void Tick()
+        {
+            float horizontalInput = UnityEngine.Input.GetAxisRaw("Horizontal");
+            float verticalInput = UnityEngine.Input.GetAxisRaw("Vertical");
 
-        public UnityAction<PointerEventData> OnDragHandle { get; set; }
-        public UnityAction<PointerEventData> OnEndDragHandle { get; set; }
-        public UnityAction<PointerEventData> OnPointerDownHandle { get; set; }
-        public UnityAction<PointerEventData> OnPointerUpHandle { get; set; }
+            Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput).normalized;
+            OnInputDirection?.Invoke(inputVector);
+        }
 
         public void CleanUp()
         {
             
         }
+
     }
 }

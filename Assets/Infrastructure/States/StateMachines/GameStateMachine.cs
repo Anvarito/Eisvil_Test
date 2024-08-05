@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Infrastructure.Factories.StateFactories;
 using Infrastructure.Services.Logging;
 using Infrastructure.States.InGameStates;
+using Infrastructure.States.Interfaces;
 using Zenject;
 
 namespace Infrastructure.States.StateMachines

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Infrastructure.Factories.StateFactories;
 using Infrastructure.Services.Logging;
+using Infrastructure.States.Interfaces;
 using Infrastructure.States.MainStates;
 using Zenject;
 

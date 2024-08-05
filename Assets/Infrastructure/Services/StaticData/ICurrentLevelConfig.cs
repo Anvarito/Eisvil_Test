@@ -1,6 +1,6 @@
 using Infrastructure.Services.StaticData.Level;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Services.StaticData
 {
     public interface ICurrentLevelConfig
     {

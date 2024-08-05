@@ -1,5 +1,5 @@
 ﻿using Infrastructure.SceneManagement;
-using Infrastructure.Services.StaticData.Level;
+using Infrastructure.States.Interfaces;
 
 namespace Infrastructure.States.MainStates
 {

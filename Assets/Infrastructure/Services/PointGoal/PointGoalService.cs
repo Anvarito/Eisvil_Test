@@ -1,5 +1,5 @@
+using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.Level;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace Infrastructure.Services.PointGoal

@@ -1,4 +1,4 @@
-using Infrastructure.States;
+using Infrastructure.States.Interfaces;
 using Zenject;
 
 namespace Infrastructure.Factories.StateFactories
