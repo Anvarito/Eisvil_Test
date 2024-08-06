@@ -6,7 +6,6 @@ namespace Infrastructure.Factories.Interfaces
 {
     public interface IEnemyFactory : IFactory
     {
-        public List<Enemy> Enemies { get; }
         void SpawnEnemy();
     }
 }

@@ -15,6 +15,6 @@ MonoBehaviour:
   Config:
     ID: 1
     InGameName: Level 1
-    GroundEnemy: 3
-    FlyEnemy: 0
-    ExplosionEnemy: 0
+    GroundEnemyCount: 5
+    FlyEnemyCount: 0
+    ExplosionEnemyCount: 0

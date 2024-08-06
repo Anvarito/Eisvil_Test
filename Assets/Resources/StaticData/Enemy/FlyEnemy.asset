@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FlyEnemy
   m_EditorClassIdentifier: 
   EnemyData:
-    EnemyType: 0
-    HitPoints: 30
+    EnemyType: 1
+    HitPoints: 10

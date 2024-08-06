@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Infrastructure.Factories
 {
-    public class EnemyFactory : IEnemyFactory
+    public class EnemyHolderFactory : IEnemyFactory, IEnemyHolder
     {
         public List<Enemy> Enemies { get; private set; }
         
@@ -20,7 +20,7 @@ namespace Infrastructure.Factories
         private readonly ILoggingService _loggingService;
         private readonly IAssetLoader _assetLoader;
 
-        public EnemyFactory(
+        public EnemyHolderFactory(
             ICurrentLevelConfig currentLevelConfig,
             IStaticDataService staticDataService,
             ILoggingService loggingService,
@@ -40,7 +40,7 @@ namespace Infrastructure.Factories
 
         public void SpawnEnemy()
         {
-            for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.GroundEnemy; i++)
+            for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.GroundEnemyCount; i++)
             {
                 Enemy enemy = _assetLoader.Instantiate<Enemy>(AssetPaths.EnemyGroundPrefab);
                 enemy.transform.parent = _spawnEnemyArea.transform;

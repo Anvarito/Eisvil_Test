@@ -8,8 +8,8 @@ namespace Infrastructure.Services.StaticData.Level
     {
         public string ID;
         public string InGameName;
-        public int GroundEnemy;
-        public int FlyEnemy;
-        public int ExplosionEnemy;
+        public int GroundEnemyCount;
+        public int FlyEnemyCount;
+        public int ExplosionEnemyCount;
     }
 }

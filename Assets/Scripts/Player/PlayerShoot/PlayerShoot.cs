@@ -1,6 +1,4 @@
-using System;
 using Infrastructure.Services.Input;
-using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
