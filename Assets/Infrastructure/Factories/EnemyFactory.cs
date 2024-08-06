@@ -43,7 +43,6 @@ namespace Infrastructure.Factories
             for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.GroundEnemyCount; i++)
             {
                 Enemy enemy = _assetLoader.Instantiate<Enemy>(AssetPaths.EnemyGroundPrefab);
-                enemy.transform.parent = _spawnEnemyArea.transform;
                 enemy.transform.position = _spawnEnemyArea.GetSpawnPoint();
                 enemy.transform.rotation = Quaternion.Euler(0, Random.rotation.eulerAngles.y, 0);
                 EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(EEnemyType.Ground);

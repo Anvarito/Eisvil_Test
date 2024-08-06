@@ -1,9 +1,23 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerSpawnPoint : MonoBehaviour
 {
-    public void Place(IPlayerView playerView)
+    private PlayerView _playerView;
+
+    [Inject]
+    private void Construct(PlayerView playerView)
     {
-        playerView.Transform.SetPositionAndRotation(transform.position, transform.rotation);
+        _playerView = playerView;
+    }
+
+    private void Awake()
+    {
+        Place();
+    }
+
+    public void Place()
+    {
+        _playerView.transform.SetPositionAndRotation(transform.position, transform.rotation);
     }
 }

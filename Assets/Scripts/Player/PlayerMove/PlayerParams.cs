@@ -1,6 +1,6 @@
-public class PlayerDataModel : IPlayerDataModel
+public class PlayerParams : IPlayerParams
 {
-    public PlayerDataModel(float speed, float angularSpeed)
+    public PlayerParams(float speed, float angularSpeed)
     {
         MoveSpeed = speed;
         AngularSpeed = angularSpeed;

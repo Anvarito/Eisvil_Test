@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Infrastructure.Services.ClosestEnemy
 {
-    public interface ISearchClosestEnemy
+    public interface IClosestEnemySearcher
     {
        public Transform GetClosestEnemyTransform();
     }

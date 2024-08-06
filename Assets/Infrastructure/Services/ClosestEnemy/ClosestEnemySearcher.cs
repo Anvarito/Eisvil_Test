@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Infrastructure.Services.ClosestEnemy
 {
-    public class SearchClosestEnemy : IService, ISearchClosestEnemy
+    public class ClosestEnemySearcher : IService, IClosestEnemySearcher
     {
         private Enemy _nearestTarget;
         private float _closestDistance = float.MaxValue;
         private readonly IEnemyHolder _enemyHolder;
-        private readonly IPlayerView _playerView;
+        private readonly PlayerView _playerView;
         
-        public SearchClosestEnemy(IEnemyHolder enemyHolder, IPlayerView playerView)
+        public ClosestEnemySearcher(IEnemyHolder enemyHolder, PlayerView playerView)
         {
             _enemyHolder = enemyHolder;
             _playerView = playerView;
@@ -24,7 +24,7 @@ namespace Infrastructure.Services.ClosestEnemy
             
             for(int i =0; i < _enemyHolder.Enemies.Count; i ++)
             {
-                float distance = Vector3.Distance(_enemyHolder.Enemies[i].transform.position, _playerView.Transform.position);
+                float distance = Vector3.Distance(_enemyHolder.Enemies[i].transform.position, _playerView.transform.position);
 
                 if (distance < _closestDistance)
                 {

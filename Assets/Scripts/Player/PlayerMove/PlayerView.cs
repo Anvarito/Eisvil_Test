@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -6,12 +5,14 @@ public class PlayerView : MonoBehaviour, IPlayerView
 {
     [SerializeField] private CharacterController _controller;
     [SerializeField] private Animator _animator;
-    public Transform Transform
+    private IPlayerParams _playerParams;
+   
+    [Inject]
+    private void Construct(IPlayerParams playerParams)
     {
-        get => transform;
-        set => throw new NotImplementedException();
+        _playerParams = playerParams;
     }
-
+    
     public void SetAnimationSpeed(float speed)
     {
         _animator.SetFloat("Speed_f", speed);
@@ -19,23 +20,29 @@ public class PlayerView : MonoBehaviour, IPlayerView
 
     public void Move(Vector3 direction)
     {
-        //print((direction));
         _controller.Move(direction);
     }
 
-    public void Rotating(Quaternion rotate)
+    public void RotatingTo(Vector3 direction)
     {
-        transform.rotation = rotate;
+        direction.y = 0;
+        Quaternion currentRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        float alpha = _playerParams.AngularSpeed * Time.deltaTime;
+        Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, alpha);
+        
+        transform.rotation = newRotation;
+    }
+
+    public void LookAtPoint(Vector3 point)
+    {
+        Vector3 direction = (point - transform.position).normalized;
+        RotatingTo(direction);
     }
 
     private void Update()
     {
         if(!_controller.isGrounded)
         _controller.Move(Vector3.down * (-Physics.gravity.y * Time.deltaTime));
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-//        print("WAAWAWAW");
     }
 }

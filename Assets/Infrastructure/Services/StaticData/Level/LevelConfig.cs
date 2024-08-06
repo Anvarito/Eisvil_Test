@@ -7,7 +7,6 @@ namespace Infrastructure.Services.StaticData.Level
     public class LevelConfig
     {
         public string ID;
-        public string InGameName;
         public int GroundEnemyCount;
         public int FlyEnemyCount;
         public int ExplosionEnemyCount;

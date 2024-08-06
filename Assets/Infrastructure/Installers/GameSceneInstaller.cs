@@ -12,7 +12,7 @@ namespace Infrastructure.Installers
     public class GameSceneInstaller : MonoInstaller
     {
         private StaticDataService _staticDataService;
-
+        
         public override void InstallBindings()
         {
             ResolveStaticDataService();
@@ -29,7 +29,7 @@ namespace Infrastructure.Installers
         {
             Container.BindInterfacesTo<PointScoreService>().AsSingle().NonLazy();
             Container.BindInterfacesTo<InputService>().AsSingle().NonLazy();
-            Container.BindInterfacesTo<SearchClosestEnemy>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<ClosestEnemySearcher>().AsSingle().NonLazy();
         }
 
         private void BindEnemyFactory()
@@ -42,13 +42,13 @@ namespace Infrastructure.Installers
 
         private void BindPlayerData()
         {
-            var playerDataModel = new PlayerDataModel(_staticDataService.PlayerMoveConfig.Speed,
+            var playerDataModel = new PlayerParams(_staticDataService.PlayerMoveConfig.Speed,
                 _staticDataService.PlayerMoveConfig.AngularSpeed);
-            Container.BindInterfacesTo<PlayerDataModel>().FromInstance(playerDataModel).AsSingle();
+            Container.BindInterfacesTo<PlayerParams>().FromInstance(playerDataModel).AsSingle();
         }
 
         private void BindPlayerView() =>
-            Container.BindInterfacesTo<PlayerView>().FromComponentInNewPrefabResource(AssetPaths.PlayerPrefab).AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerView>().FromComponentInNewPrefabResource(AssetPaths.PlayerPrefab).AsSingle();
 
         private void BindPlayerController() =>
             Container.Bind<PlayerMoveContoller>().AsSingle().NonLazy();

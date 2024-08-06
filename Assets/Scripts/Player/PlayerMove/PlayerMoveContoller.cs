@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class PlayerMoveContoller
 {
-    private IPlayerDataModel _playerDataModel;
+    private IPlayerParams _playerParams;
     private IPlayerView _playerView;
 
     private IInputService _inputServise;
 
     private Vector3 _movementDirection;
 
-    public PlayerMoveContoller(IPlayerView playerView, IPlayerDataModel playerDataModel, IInputService inputService)
+    public PlayerMoveContoller(IPlayerView playerView, IPlayerParams playerParams, IInputService inputService)
     {
         _playerView = playerView;
-        _playerDataModel = playerDataModel;
+        _playerParams = playerParams;
         _inputServise = inputService;
 
         _inputServise.OnInputDirection += Move;
@@ -34,7 +34,7 @@ public class PlayerMoveContoller
 
     private void Move(Vector3 moveDirection)
     {
-        _playerView.Move(moveDirection * (_playerDataModel.MoveSpeed * Time.deltaTime));
+        _playerView.Move(moveDirection * (_playerParams.MoveSpeed * Time.deltaTime));
     }
 
     private void SetAnimation(Vector3 moveDirection)
@@ -48,10 +48,6 @@ public class PlayerMoveContoller
         if (moveDirection == Vector3.zero)
             return;
 
-        var currentRotation = _playerView.Transform.rotation;
-        var targetRotation = Quaternion.LookRotation(moveDirection);
-        var alpha = _playerDataModel.AngularSpeed * Time.deltaTime;
-        var newRotation = Quaternion.Slerp(currentRotation, targetRotation, alpha);
-        _playerView.Rotating(newRotation);
+        _playerView.RotatingTo(moveDirection);
     }
 }
