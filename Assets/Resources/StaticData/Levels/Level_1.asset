@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   Config:
-    SceneName: Level1
+    ID: 1
     InGameName: Level 1
-    GameTimer: 5
-    SpawnDelay: 0.1
-    CargoGoal: 20
+    GroundEnemy: 3
+    FlyEnemy: 0
+    ExplosionEnemy: 0

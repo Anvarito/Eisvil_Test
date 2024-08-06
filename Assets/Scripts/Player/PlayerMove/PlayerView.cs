@@ -36,6 +36,6 @@ public class PlayerView : MonoBehaviour, IPlayerView
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        print("WAAWAWAW");
+//        print("WAAWAWAW");
     }
 }

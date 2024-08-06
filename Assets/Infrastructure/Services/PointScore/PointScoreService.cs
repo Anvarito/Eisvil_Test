@@ -1,17 +1,17 @@
+using Infrastructure.Services.PointGoal;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.Level;
 using UnityEngine.Events;
 
-namespace Infrastructure.Services.PointGoal
+namespace Infrastructure.Services.PointScore
 {
-    public class PointGoalService : IPointGoalService
+    public class PointScoreService : IPointScoreService
     {
-        public UnityAction OnPointsGoal { get; set; }
 
         private LevelConfig _levelConfig;
         private int points = 0;
         
-        public PointGoalService(ICurrentLevelConfig levelConfig)
+        public PointScoreService(ICurrentLevelConfig levelConfig)
         {
             _levelConfig = levelConfig.CurrentLevelConfig;
         }
@@ -25,8 +25,6 @@ namespace Infrastructure.Services.PointGoal
         private void Encrease()
         {
             points++;
-            if (points >= _levelConfig.CargoGoal)
-                OnPointsGoal?.Invoke();
         }
 
         public void CleanUp()

@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -5,9 +6,12 @@ public class Bullet : MonoBehaviour
 {
     public float _speed = 10;
     public int _destroyMilliseconds = 5000;
+    public int _damageValue = 3;
+    private CancellationTokenSource _cancellationTokenSource;
 
     private void Awake()
     {
+        _cancellationTokenSource = new CancellationTokenSource();
         DestroyByTime();
     }
 
@@ -18,7 +22,7 @@ public class Bullet : MonoBehaviour
 
     private async UniTask DestroyByTime()
     {
-        await UniTask.Delay(_destroyMilliseconds);
+        await UniTask.Delay(_destroyMilliseconds, cancellationToken: _cancellationTokenSource.Token);
         Destroy(gameObject);
     }
 
@@ -26,9 +30,14 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent(out IDamageReceiver damageRecivier))
         {
-            damageRecivier.ApplyDamage(1);
+            damageRecivier.ApplyDamage(_damageValue);
         }
 
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        _cancellationTokenSource.Cancel();
     }
 }

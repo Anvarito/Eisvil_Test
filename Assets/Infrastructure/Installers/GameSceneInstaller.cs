@@ -1,6 +1,8 @@
 using Infrastructure.Constants;
+using Infrastructure.Factories;
 using Infrastructure.Services.Input;
 using Infrastructure.Services.PointGoal;
+using Infrastructure.Services.PointScore;
 using Infrastructure.Services.StaticData;
 using Zenject;
 
@@ -14,9 +16,8 @@ namespace Infrastructure.Installers
         {
             BindFactories();
 
-            Container.BindInterfacesTo<PointGoalService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<PointScoreService>().AsSingle().NonLazy();
 
-            //BindCargoFactory();
             ResolveStaticDataService();
 
             BindPlayerData();
@@ -25,11 +26,14 @@ namespace Infrastructure.Installers
 
 
             Container.BindInterfacesTo<InputService>().AsSingle().NonLazy();
+            BindEnemyFactory();
             //BindCameraMover();
         }
 
-        // private void BindCargoFactory()=>
-        //     Container.BindFactory<Enemy, Enemy.Factory>().FromComponentInNewPrefabResource(AssetPaths.Enemy);
+         private void BindEnemyFactory()
+         {
+             Container.BindInterfacesTo<EnemyFactory>().AsSingle().NonLazy();
+         }
 
 
         private void BindFactories()
@@ -42,13 +46,13 @@ namespace Infrastructure.Installers
 
         private void BindPlayerData()
         {
-            var playerDataModel = new PlayerDataModel(_staticDataService.ForPlayer.Speed,
-                _staticDataService.ForPlayer.AngularSpeed);
+            var playerDataModel = new PlayerDataModel(_staticDataService.PlayerMoveConfig.Speed,
+                _staticDataService.PlayerMoveConfig.AngularSpeed);
             Container.BindInterfacesTo<PlayerDataModel>().FromInstance(playerDataModel).AsSingle();
         }
 
         private void BindPlayerView() =>
-            Container.BindInterfacesTo<PlayerView>().FromComponentInNewPrefabResource(AssetPaths.Player).AsSingle();
+            Container.BindInterfacesTo<PlayerView>().FromComponentInNewPrefabResource(AssetPaths.PlayerPrefab).AsSingle();
 
         private void BindPlayerController() =>
             Container.Bind<PlayerMoveContoller>().AsSingle().NonLazy();

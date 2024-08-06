@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c42f20c7600b4f5393be6607f1bf1cd5, type: 3}
-  m_Name: Level_3
+  m_Script: {fileID: 11500000, guid: 4f9b63f7404542b788241639f79c03c7, type: 3}
+  m_Name: GroundEnemy
   m_EditorClassIdentifier: 
-  Config:
-    ID: 3
-    InGameName: Level 3
-    GroundEnemy: 0
-    FlyEnemy: 0
-    ExplosionEnemy: 0
+  EnemyData:
+    EnemyType: 0
+    HitPoints: 30

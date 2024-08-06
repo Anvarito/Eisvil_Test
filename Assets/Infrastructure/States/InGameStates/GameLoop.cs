@@ -6,26 +6,24 @@ namespace Infrastructure.States.InGameStates
 {
     public class GameLoop: IState
     {
-        private IPointGoalService _pointGoalService;
+        private IPointScoreService _pointScoreService;
         private GameStateMachine _gameStateMachine;
 
 
-        public GameLoop(GameStateMachine gameStateMachine, IPointGoalService pointGoalService)
+        public GameLoop(GameStateMachine gameStateMachine, IPointScoreService pointScoreService)
         {
             _gameStateMachine = gameStateMachine;
-            _pointGoalService = pointGoalService;
+            _pointScoreService = pointScoreService;
         }
        
 
         public void Exit()
         {
-            _pointGoalService.OnPointsGoal -= OnPointsGoal;
-            _pointGoalService.CleanUp();
+            _pointScoreService.CleanUp();
         }
 
         public void Enter()
         {
-            _pointGoalService.OnPointsGoal += OnPointsGoal;
         }
 
         private void OnPointsGoal()

@@ -2,7 +2,8 @@ namespace Infrastructure.Constants
 {
     public class AssetPaths
     {
-        public const string Player = "General/Player";
+        public const string PlayerPrefab = "General/Player";
+        public const string EnemyGroundPrefab = "General/EnemyGround";
         public const string PlayerCamera = "General/PlayerCamera";
         public const string Cargo = "General/Enemy";
 
@@ -13,7 +14,8 @@ namespace Infrastructure.Constants
         public const string VictoryCanvas = "General/UI/VictoryCanvas";
 
         //Static data
-        public const string LevelDataPath = "StaticData/Levels";
-        public const string PlayerDataPath = "StaticData/Player";
+        public const string LevelsData = "StaticData/Levels";
+        public const string PlayerMoveData = "StaticData/Player/PlayerMove";
+        public const string EnemysData = "StaticData/Enemy";
     }
 }

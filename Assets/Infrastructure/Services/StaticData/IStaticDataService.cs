@@ -5,9 +5,11 @@ namespace Infrastructure.Services.StaticData
 {
     public interface IStaticDataService : IService
     {
-        void LoadAllStaticData();
+        void LoadLevelsData();
+        void LoadPlayerMoveConfig();
+        void LoadEnemyConfig();
         LevelConfig ForLevel(string id);
-        PlayerMoveConfig ForPlayer{ get; }
         Dictionary<string, LevelConfig> Levels { get; }
+        Dictionary<EEnemyType, EnemyData> Enemies { get; }
     }
 }

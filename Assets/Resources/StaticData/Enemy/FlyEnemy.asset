@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008d436a27246a3aa00c3560e89ed67, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 4f9b63f7404542b788241639f79c03c7, type: 3}
+  m_Name: FlyEnemy
   m_EditorClassIdentifier: 
-  AngularSpeed: 10
-  Speed: 10
+  EnemyData:
+    EnemyType: 0
+    HitPoints: 30

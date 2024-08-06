@@ -1,61 +1,69 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using Cysharp.Threading.Tasks;
+using Infrastructure.Constants;
 using Infrastructure.Factories.Interfaces;
+using Infrastructure.Services.Assets;
 using Infrastructure.Services.Logging;
 using Infrastructure.Services.StaticData;
-using ModestTree;
 using UnityEngine;
 
 namespace Infrastructure.Factories
 {
     public class EnemyFactory : IEnemyFactory
     {
+        public List<Enemy> Enemies { get; private set; }
+        
         private float _spawnDelay;
-        private List<SpawnEnemyArea> _spawnEnemyAreas = new List<SpawnEnemyArea>();
-        private CancellationTokenSource _cancellationTokenSource;
-        private ICurrentLevelConfig _currentLevelConfig;
-        private Enemy.Factory _enemyFactory;
-        private ILoggingService _loggingService;
+        private SpawnEnemyArea _spawnEnemyArea;
+        private readonly ICurrentLevelConfig _currentLevelConfig;
+        private readonly IStaticDataService _staticDataService;
+        private readonly ILoggingService _loggingService;
+        private readonly IAssetLoader _assetLoader;
 
-        public EnemyFactory(ICurrentLevelConfig currentLevelConfig, Enemy.Factory enemyFactory, ILoggingService loggingService)
+        public EnemyFactory(
+            ICurrentLevelConfig currentLevelConfig,
+            IStaticDataService staticDataService,
+            ILoggingService loggingService,
+            IAssetLoader assetLoader)
         {
             _loggingService = loggingService;
-            _enemyFactory = enemyFactory;
+            _assetLoader = assetLoader;
             _currentLevelConfig = currentLevelConfig;
+            _staticDataService = staticDataService;
         }
 
         public async UniTask WarmUp()
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            _spawnEnemyAreas = Object.FindObjectsOfType<SpawnEnemyArea>().ToList();
+            Enemies = new List<Enemy>();
+            _spawnEnemyArea = Object.FindObjectOfType<SpawnEnemyArea>();
         }
 
-        public async UniTask SpawnEnemy()
+        public void SpawnEnemy()
         {
-            foreach (var area in _spawnEnemyAreas)
+            for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.GroundEnemy; i++)
             {
-                await UniTask.WaitForSeconds(_currentLevelConfig.CurrentLevelConfig.SpawnDelay,false,PlayerLoopTiming.Update, _cancellationTokenSource.Token);
-                var enemy = _enemyFactory.Create();
-                enemy.transform.parent = area.transform;
-                enemy.transform.position = area.GetSpawnPoint();
+                Enemy enemy = _assetLoader.Instantiate<Enemy>(AssetPaths.EnemyGroundPrefab);
+                enemy.transform.parent = _spawnEnemyArea.transform;
+                enemy.transform.position = _spawnEnemyArea.GetSpawnPoint();
                 enemy.transform.rotation = Quaternion.Euler(0, Random.rotation.eulerAngles.y, 0);
+                EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(EEnemyType.Ground);
+                IHitPoints hitPointsHolder = new HitPointsHolder(enemy.GetComponent<DamageRecivier>(), enemyStaticData.HitPoints);
+                enemy.Init(hitPointsHolder);
+                enemy.OnDead += EnemyDead;
+                Enemies.Add(enemy);
             }
+        }
 
-            if (_spawnEnemyAreas.IsEmpty())
-            {
-                _loggingService.LogMessage("Not have spawn cargo areas!");
-                _cancellationTokenSource.Cancel();
-            }
-            
-            await SpawnEnemy();
+        private void EnemyDead(Enemy enemy)
+        {
+            Enemies.Remove(enemy);
         }
 
         public void CleanUp()
         {
-            _cancellationTokenSource.Cancel();
-            _spawnEnemyAreas = null;
+            Enemies.Clear();
+            Enemies = null;
+            _spawnEnemyArea = null;
         }
     }
 }

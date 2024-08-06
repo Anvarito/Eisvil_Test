@@ -24,7 +24,7 @@ namespace Infrastructure.States.MainStates
 
         private async void OnLoaded()
         {
-            // _pointGoalService.Setup(_pendingStageStaticData);
+            // _pointScoreService.Setup(_pendingStageStaticData);
             // await _cargoFactory.WarmUp();
             // await _uiFactory.WarmUp();
             // await _heroFactory.WarmUp();
