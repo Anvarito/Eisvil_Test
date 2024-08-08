@@ -1,4 +1,5 @@
 using Infrastructure.Services.Input;
+using Infrastructure.Services.TimerServices;
 using UnityEngine;
 
 public class PlayerMoveContoller
@@ -7,20 +8,34 @@ public class PlayerMoveContoller
     private IPlayerView _playerView;
 
     private IInputService _inputServise;
+    private readonly IStartTimerService _startTimerService;
 
     private Vector3 _movementDirection;
 
-    public PlayerMoveContoller(IPlayerView playerView, IPlayerParams playerParams, IInputService inputService)
+    public PlayerMoveContoller(
+        IPlayerView playerView, 
+        IPlayerParams playerParams, 
+        IInputService inputService,
+        IStartTimerService startTimerService)
     {
         _playerView = playerView;
         _playerParams = playerParams;
         _inputServise = inputService;
+        _startTimerService = startTimerService;
 
+        _startTimerService.OnTimerOut += OnStartTimerOut;
+        
+
+        _playerView.SetAnimationSpeed(0);
+    }
+
+    private void OnStartTimerOut()
+    {
+        _startTimerService.OnTimerOut -= OnStartTimerOut;
+        
         _inputServise.OnInputDirection += Move;
         _inputServise.OnInputDirection += Rotation;
         _inputServise.OnInputDirection += SetAnimation;
-
-        _playerView.SetAnimationSpeed(0);
     }
 
     public void Dispose()

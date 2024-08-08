@@ -12,6 +12,7 @@ namespace Infrastructure.Constants
         public const string InputCanvas = "General/UI/InputCanvas";
         public const string JoystickCanvas = "General/UI/Joystick";
         public const string VictoryCanvas = "General/UI/VictoryCanvas";
+        public const string StartTimer = "General/UI/StartTimerCanvas";
 
         //Static data
         public const string LevelsData = "StaticData/Levels";
