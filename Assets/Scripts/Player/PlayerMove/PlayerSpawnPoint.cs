@@ -11,12 +11,12 @@ public class PlayerSpawnPoint : MonoBehaviour
         _playerView = playerView;
     }
 
-    private void Awake()
+    private void Start()
     {
         Place();
     }
 
-    public void Place()
+    private void Place()
     {
         _playerView.transform.SetPositionAndRotation(transform.position, transform.rotation);
     }

@@ -12,7 +12,6 @@ namespace Infrastructure.Services.StaticData
         public Dictionary<EEnemyType, EnemyData> Enemies { get; private set;}
         public LevelConfig CurrentLevelConfig { get; private set; }
         public PlayerMoveConfig PlayerMoveConfig { get; private set; }
-        public EnemyStaticData EnemyStaticDataStaticData { get; private set; }
 
         public StaticDataService()
         {

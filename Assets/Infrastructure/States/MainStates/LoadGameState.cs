@@ -21,14 +21,5 @@ namespace Infrastructure.States.MainStates
         public void Exit()
         {
         }
-
-        private async void OnLoaded()
-        {
-            // _pointScoreService.Setup(_pendingStageStaticData);
-            // await _cargoFactory.WarmUp();
-            // await _uiFactory.WarmUp();
-            // await _heroFactory.WarmUp();
-            // _stateMachine.Enter<GameLoopState>();
-        }
     }
 }

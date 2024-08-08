@@ -6,6 +6,7 @@ namespace Infrastructure.Factories.Interfaces
 {
     public interface IEnemyFactory : IFactory
     {
+        UnityAction OnAllEnemyDead { get; set; }
         void SpawnEnemy();
     }
 }

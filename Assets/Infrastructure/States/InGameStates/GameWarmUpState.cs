@@ -13,17 +13,20 @@ namespace Infrastructure.States.InGameStates
         private readonly IPointScoreService _pointScoreService;
         private readonly IEnemyFactory _enemyFactory;
         private readonly IStaticDataService _staticDataService;
+        private readonly ExitTrigger _exitTrigger;
 
         public GameWarmUpState(
             GameStateMachine gameStateMachine,
             IPointScoreService pointScoreService,
             IEnemyFactory enemyFactory,
-            IStaticDataService staticDataService
+            IStaticDataService staticDataService,
+            ExitTrigger exitTrigger
             )
         {
             _pointScoreService = pointScoreService;
             _enemyFactory = enemyFactory;
             _staticDataService = staticDataService;
+            _exitTrigger = exitTrigger;
             _gameStateMachine = gameStateMachine;
         }
 
@@ -37,6 +40,7 @@ namespace Infrastructure.States.InGameStates
             _staticDataService.ForLevel("1");
             CreateEnemy();
             _pointScoreService.WarmUp();
+            _exitTrigger.gameObject.SetActive(false);
             _gameStateMachine.Enter<GameLoop>();
         }
 

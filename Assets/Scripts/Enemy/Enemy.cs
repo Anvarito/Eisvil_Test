@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     private void OnHealthOver()
     {
+        _hitPoints.OnHealthOver -= OnHealthOver;
         OnDead?.Invoke(this);
         Destroy(gameObject);
     }

@@ -6,13 +6,15 @@ using Infrastructure.Services.Assets;
 using Infrastructure.Services.Logging;
 using Infrastructure.Services.StaticData;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Infrastructure.Factories
 {
     public class EnemyHolderFactory : IEnemyFactory, IEnemyHolder
     {
         public List<Enemy> Enemies { get; private set; }
-        
+        public UnityAction OnAllEnemyDead { get; set; }
+
         private float _spawnDelay;
         private SpawnEnemyArea _spawnEnemyArea;
         private readonly ICurrentLevelConfig _currentLevelConfig;
@@ -38,6 +40,7 @@ namespace Infrastructure.Factories
             _spawnEnemyArea = Object.FindObjectOfType<SpawnEnemyArea>();
         }
 
+
         public void SpawnEnemy()
         {
             for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.GroundEnemyCount; i++)
@@ -46,7 +49,8 @@ namespace Infrastructure.Factories
                 enemy.transform.position = _spawnEnemyArea.GetSpawnPoint();
                 enemy.transform.rotation = Quaternion.Euler(0, Random.rotation.eulerAngles.y, 0);
                 EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(EEnemyType.Ground);
-                IHitPoints hitPointsHolder = new HitPointsHolder(enemy.GetComponent<DamageRecivier>(), enemyStaticData.HitPoints);
+                IHitPoints hitPointsHolder =
+                    new HitPointsHolder(enemy.GetComponent<DamageRecivier>(), enemyStaticData.HitPoints);
                 enemy.Init(hitPointsHolder);
                 enemy.OnDead += EnemyDead;
                 Enemies.Add(enemy);
@@ -55,7 +59,16 @@ namespace Infrastructure.Factories
 
         private void EnemyDead(Enemy enemy)
         {
+            enemy.OnDead -= EnemyDead;
             Enemies.Remove(enemy);
+            
+            if (IsAllEnemyDead())
+                OnAllEnemyDead?.Invoke();
+        }
+
+        private bool IsAllEnemyDead()
+        {
+            return Enemies.Count == 0;
         }
 
         public void CleanUp()
