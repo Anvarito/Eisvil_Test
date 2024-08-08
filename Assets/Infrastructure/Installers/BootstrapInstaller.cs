@@ -1,8 +1,10 @@
 using Infrastructure.SceneManagement;
 using Infrastructure.Services.Assets;
+using Infrastructure.Services.GameProgress;
 using Infrastructure.Services.Input;
 using Infrastructure.Services.Logging;
 using Infrastructure.Services.StaticData;
+using Infrastructure.Services.StaticData.Level;
 using Zenject;
 
 namespace Infrastructure.Installers
@@ -23,6 +25,8 @@ namespace Infrastructure.Installers
             Container.Bind<ILoggingService>().To<LoggingService>().AsSingle().NonLazy();
             Container.Bind<IAssetLoader>().To<AssetLoader>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle().NonLazy(); 
+            Container.BindInterfacesTo<LevelProgressService>().AsSingle().NonLazy(); 
+            Container.BindInterfacesTo<LevelNumberSaver>().AsSingle().NonLazy(); 
         }
     }
 }

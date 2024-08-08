@@ -8,7 +8,7 @@ namespace Infrastructure.Services.StaticData
 {
     public class StaticDataService : IStaticDataService, ICurrentLevelConfig
     {
-        public Dictionary<string, LevelConfig> Levels { get; private set; }
+        public Dictionary<int, LevelConfig> Levels { get; private set; }
         public Dictionary<EEnemyType, EnemyData> Enemies { get; private set;}
         public LevelConfig CurrentLevelConfig { get; private set; }
         public PlayerMoveConfig PlayerMoveConfig { get; private set; }
@@ -44,17 +44,23 @@ namespace Infrastructure.Services.StaticData
             Debug.Log("Enemy data loaded");
         }
 
-        public LevelConfig ForLevel(string id)
+        public LevelConfig ForLevel(int id)
         {
-            if (Levels.TryGetValue(id, out LevelConfig config))
-            {
-                CurrentLevelConfig = config;
-                return CurrentLevelConfig;
-            }
-
-            return null;
+            id = CheckForNull(id);
+            
+            LevelConfig config = Levels.Where(kvp => kvp.Key == id)
+                .Select(kvp => kvp.Value)
+                .FirstOrDefault();
+            
+            CurrentLevelConfig = config;
+            
+            return config;
         }
 
+        private int CheckForNull(int id)
+        {
+            return id <= 0 ? 1 : id;
+        }
 
 
         public void CleanUp()

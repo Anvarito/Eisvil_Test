@@ -8,8 +8,8 @@ namespace Infrastructure.Services.StaticData
         void LoadLevelsData();
         void LoadPlayerMoveConfig();
         void LoadEnemyConfig();
-        LevelConfig ForLevel(string id);
-        Dictionary<string, LevelConfig> Levels { get; }
+        LevelConfig ForLevel(int id);
+        Dictionary<int, LevelConfig> Levels { get; }
         Dictionary<EEnemyType, EnemyData> Enemies { get; }
     }
 }

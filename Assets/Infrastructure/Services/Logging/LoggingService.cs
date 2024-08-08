@@ -10,6 +10,7 @@ namespace Infrastructure.Services.Logging
         private const string InfrastructureColor = "#e38d46";
         private const string MetaColor           = "#e346b4";
         private const string GameplayColor       = "#4697e3";
+        private const string GameProgressColor       = "#85437E";
         
         public void LogMessage(string message, object sender = null) =>
             Debug.Log(GetString(message, sender ?? this));
@@ -29,6 +30,7 @@ namespace Infrastructure.Services.Logging
                 var x when Regex.IsMatch(x, @".*Infrastructure.*") => InfrastructureColor,
                 var x when Regex.IsMatch(x, @".*Meta.*")           => MetaColor,
                 var x when Regex.IsMatch(x, @".*Gameplay.*")       => GameplayColor,
+                var x when Regex.IsMatch(x, @".*GameProgress.*")       => GameProgressColor,
                 _                                                  => DefaultColor
             };
     }

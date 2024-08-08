@@ -37,7 +37,7 @@ namespace Infrastructure.States.InGameStates
 
         public async void Enter()
         {
-            _staticDataService.ForLevel("1");
+            //_staticDataService.ForLevel("1");
             CreateEnemy();
             _pointScoreService.WarmUp();
             _exitTrigger.gameObject.SetActive(false);
