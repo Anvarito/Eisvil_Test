@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.Constants;
 using Infrastructure.Services.StaticData.Level;
+using Infrastructure.Services.StaticData.EnemyConfigs;
+using Infrastructure.Services.StaticData.PlayerConfigs;
 using UnityEngine;
 
 namespace Infrastructure.Services.StaticData
@@ -12,11 +14,13 @@ namespace Infrastructure.Services.StaticData
         public Dictionary<EEnemyType, EnemyData> Enemies { get; private set;}
         public LevelConfig CurrentLevelConfig { get; private set; }
         public PlayerMoveConfig PlayerMoveConfig { get; private set; }
+        public PlayerHitPointsConfig PlayerHitPointsConfig { get; private set; }
 
         public StaticDataService()
         {
             LoadLevelsData();
             LoadPlayerMoveConfig();
+            LoadPlayerHitPointsConfig();
             LoadEnemyConfig();
         }
 
@@ -30,15 +34,16 @@ namespace Infrastructure.Services.StaticData
             Debug.Log("level data loaded");
         }
 
-        public void LoadPlayerMoveConfig()
-        {
+        public void LoadPlayerMoveConfig()=>
             PlayerMoveConfig = Resources.Load<PlayerMoveConfig>(AssetPaths.PlayerMoveData);
-        }
+
+        public void LoadPlayerHitPointsConfig()=>
+            PlayerHitPointsConfig = Resources.Load<PlayerHitPointsConfig>(AssetPaths.PlayerHitPointsData);
 
         public void LoadEnemyConfig()
         {
             Enemies = Resources
-                .LoadAll<EnemyStaticData>(AssetPaths.EnemysData)
+                .LoadAll<EnemyStaticConfig>(AssetPaths.EnemysData)
                 .Select(x => x.EnemyData)
                 .ToDictionary(x => x.EnemyType, x => x);
             Debug.Log("Enemy data loaded");

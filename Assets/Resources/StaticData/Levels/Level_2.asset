@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Config:
     ID: 2
-    InGameName: Level 2
-    GroundEnemy: 0
-    FlyEnemy: 0
-    ExplosionEnemy: 0
+    GroundEnemyCount: 3
+    FlyEnemyCount: 0
+    ExplosionEnemyCount: 0

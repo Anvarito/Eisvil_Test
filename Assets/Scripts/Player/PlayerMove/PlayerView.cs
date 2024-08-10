@@ -1,3 +1,4 @@
+using Infrastructure.Services.StaticData;
 using UnityEngine;
 using Zenject;
 
@@ -5,14 +6,38 @@ public class PlayerView : MonoBehaviour, IPlayerView
 {
     [SerializeField] private CharacterController _controller;
     [SerializeField] private Animator _animator;
-    private IPlayerParams _playerParams;
-   
+    [SerializeField] private DamageRecivier _damageRecivier;
+
+    private IHitPoints _hitPoints;
+    private IStaticDataService _staticDataService;
+
     [Inject]
-    private void Construct(IPlayerParams playerParams)
+    private void Construct(IStaticDataService staticDataService, IHitPoints hitPoints )
     {
-        _playerParams = playerParams;
+        _staticDataService = staticDataService;
+        _hitPoints = hitPoints;
+        _damageRecivier.OnApplyDamage += TakeDamage;
     }
-    
+
+    private void OnDestroy()
+    {
+        _damageRecivier.OnApplyDamage -= TakeDamage;
+    }
+
+    private void TakeDamage(int damageAmount)
+    {
+        print("current hp is " + _hitPoints.CurrentHitPoints);
+        if (_hitPoints.DecreaseHitPoints(damageAmount) <= 0)
+        {
+            PlayerDead();
+        }
+    }
+
+    private void PlayerDead()
+    {
+        
+    }
+
     public void SetAnimationSpeed(float speed)
     {
         _animator.SetFloat("Speed_f", speed);
@@ -28,7 +53,7 @@ public class PlayerView : MonoBehaviour, IPlayerView
         direction.y = 0;
         Quaternion currentRotation = transform.rotation;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        float alpha = _playerParams.AngularSpeed * Time.deltaTime;
+        float alpha = _staticDataService.PlayerMoveConfig.AngularSpeed * Time.deltaTime;
         Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, alpha);
         
         transform.rotation = newRotation;

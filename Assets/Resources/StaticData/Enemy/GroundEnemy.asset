@@ -15,3 +15,8 @@ MonoBehaviour:
   EnemyData:
     EnemyType: 0
     HitPoints: 30
+    DetectRadius: 30
+    ShootDistance: 25
+    FireRate: 1
+    MoveSpeed: 5
+    AngularSpeed: 7

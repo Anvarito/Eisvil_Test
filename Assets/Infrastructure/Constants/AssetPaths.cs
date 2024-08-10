@@ -17,6 +17,7 @@ namespace Infrastructure.Constants
         //Static data
         public const string LevelsData = "StaticData/Levels";
         public const string PlayerMoveData = "StaticData/Player/PlayerMove";
+        public const string PlayerHitPointsData = "StaticData/Player/PlayerHitPointsConfig";
         public const string EnemysData = "StaticData/Enemy";
     }
 }

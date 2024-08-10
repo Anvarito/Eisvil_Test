@@ -3,9 +3,9 @@ using UnityEngine.Events;
 
 public class DamageRecivier : MonoBehaviour, IDamageReceiver
 {
-    public UnityAction<float> OnApplyDamage { get; set; }
+    public UnityAction<int> OnApplyDamage { get; set; }
 
-    public void ApplyDamage(float damageValue)
+    public void ApplyDamage(int damageValue)
     {
         OnApplyDamage?.Invoke(damageValue);
     }

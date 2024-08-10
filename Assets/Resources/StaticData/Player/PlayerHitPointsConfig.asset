@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c42f20c7600b4f5393be6607f1bf1cd5, type: 3}
-  m_Name: Level_1
+  m_Script: {fileID: 11500000, guid: 4064775b2dfa4889a148e41456c7b7b1, type: 3}
+  m_Name: PlayerHitPointsConfig
   m_EditorClassIdentifier: 
-  Config:
-    ID: 1
-    GroundEnemyCount: 2
-    FlyEnemyCount: 0
-    ExplosionEnemyCount: 0
+  HitPoints: 100

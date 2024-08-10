@@ -57,7 +57,7 @@ namespace Player.PlayerShoot
                 _fireCooldown += Time.deltaTime;
                 if (_fireCooldown >= _fireRate)
                 {
-                    Instantiate(_bulletPrefab,_muzzlePoint.position, _muzzlePoint.rotation);
+                    Instantiate(_bulletPrefab, _muzzlePoint.position, _muzzlePoint.rotation);
                     _fireCooldown = 0;
                 }
             }

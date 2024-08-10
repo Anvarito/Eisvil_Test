@@ -1,10 +1,11 @@
 using Infrastructure.Services.Input;
+using Infrastructure.Services.StaticData;
 using Infrastructure.Services.TimerServices;
 using UnityEngine;
 
 public class PlayerMoveContoller
 {
-    private IPlayerParams _playerParams;
+    private IStaticDataService _staticDataService;
     private IPlayerView _playerView;
 
     private IInputService _inputServise;
@@ -14,12 +15,12 @@ public class PlayerMoveContoller
 
     public PlayerMoveContoller(
         IPlayerView playerView, 
-        IPlayerParams playerParams, 
+        IStaticDataService staticDataService,
         IInputService inputService,
         IStartTimerService startTimerService)
     {
         _playerView = playerView;
-        _playerParams = playerParams;
+        _staticDataService = staticDataService;
         _inputServise = inputService;
         _startTimerService = startTimerService;
 
@@ -49,7 +50,7 @@ public class PlayerMoveContoller
 
     private void Move(Vector3 moveDirection)
     {
-        _playerView.Move(moveDirection * (_playerParams.MoveSpeed * Time.deltaTime));
+        _playerView.Move(moveDirection * (_staticDataService.PlayerMoveConfig.Speed * Time.deltaTime));
     }
 
     private void SetAnimation(Vector3 moveDirection)
