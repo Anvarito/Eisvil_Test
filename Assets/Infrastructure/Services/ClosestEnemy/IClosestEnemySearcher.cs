@@ -4,6 +4,6 @@ namespace Infrastructure.Services.ClosestEnemy
 {
     public interface IClosestEnemySearcher
     {
-       public Transform GetClosestEnemyTransform();
+       public Transform GetClosestEnemyTransform(Transform originPoint);
     }
 }

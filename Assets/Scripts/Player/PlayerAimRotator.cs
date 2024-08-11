@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerAimRotating
+    public class PlayerAimRotator
     {
         private readonly IInputService _inputService;
         private readonly IClosestEnemySearcher _closestEnemySearcher;
-        private readonly IPlayerView _playerView;
+        private readonly PlayerView _playerView;
 
-        public PlayerAimRotating(
+        public PlayerAimRotator(
             IInputService inputService, 
             IClosestEnemySearcher closestEnemySearcher, 
-            IPlayerView playerView)
+            PlayerView playerView)
         {
             _inputService = inputService;
             _closestEnemySearcher = closestEnemySearcher;
@@ -33,12 +33,11 @@ namespace Player
             if (moveDirection != Vector3.zero)
                 return;
 
-            Transform closestTarget = _closestEnemySearcher.GetClosestEnemyTransform();
+            Transform closestTarget = _closestEnemySearcher.GetClosestEnemyTransform(_playerView.transform);
             if (closestTarget == null)
                 return;
             
             _playerView.LookAtPoint(closestTarget.position);
-            
         }
     }
 }

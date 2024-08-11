@@ -4,12 +4,12 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class GroundMoveController : IEnemyMoveController
+    public class EnemyMoveController : IEnemyMoveController
     {
         private NavMeshAgent _navMeshAgent;
         private readonly EnemyData _enemyStaticData;
 
-        public GroundMoveController(NavMeshAgent navMeshAgent, EnemyData enemyStaticData)
+        public EnemyMoveController(NavMeshAgent navMeshAgent, EnemyData enemyStaticData)
         {
             _navMeshAgent = navMeshAgent;
             _enemyStaticData = enemyStaticData;

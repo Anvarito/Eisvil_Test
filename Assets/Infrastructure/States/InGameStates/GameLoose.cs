@@ -11,14 +11,12 @@ namespace Infrastructure.States.InGameStates
     {
         private readonly IAssetLoader _assetLoader;
         private readonly MainStateMachine _mainStateMachine;
-        private readonly PlayerController _playerController;
         private DefeatScreen _defeatCanvas;
 
-        public GameLoose(IAssetLoader assetLoader, MainStateMachine mainStateMachine, PlayerController playerController)
+        public GameLoose(IAssetLoader assetLoader, MainStateMachine mainStateMachine)
         {
             _assetLoader = assetLoader;
             _mainStateMachine = mainStateMachine;
-            _playerController = playerController;
         }
         
         public void Exit()
@@ -27,7 +25,6 @@ namespace Infrastructure.States.InGameStates
 
         public void Enter()
         {
-            _playerController.DisableControl();
             _defeatCanvas = _assetLoader.Instantiate<DefeatScreen>(AssetPaths.DefeatCanvas);
             _defeatCanvas.OnCLick += ButtonPush;
         }

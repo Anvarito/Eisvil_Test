@@ -4,6 +4,8 @@ namespace Infrastructure.Constants
     {
         public const string PlayerPrefab = "General/Player";
         public const string EnemyGroundPrefab = "General/EnemyGround";
+        public const string ExplosionEnemyPrefab = "General/ExplosionEnemy";
+        public const string FlyEnemyPrefab = "General/EnemyFly";
 
         //UI
         public const string PointsCanvas = "General/UI/PointsCanvas";

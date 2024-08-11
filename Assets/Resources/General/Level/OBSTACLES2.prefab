@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5841753123038609338}
   - component: {fileID: 4067295975670154135}
   - component: {fileID: 3710289177971995363}
-  - component: {fileID: 5023805480669325804}
-  m_Layer: 0
+  - component: {fileID: 7190885609294240024}
+  m_Layer: 9
   m_Name: Obstacle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!208 &5023805480669325804
+--- !u!208 &7190885609294240024
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 7675498509577502427}
   - component: {fileID: 8092899115751296608}
   - component: {fileID: 7632632694109301758}
-  - component: {fileID: 9200163808297374566}
-  m_Layer: 0
+  - component: {fileID: 8963599519499793537}
+  m_Layer: 9
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!208 &9200163808297374566
+--- !u!208 &8963599519499793537
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,8 +256,8 @@ GameObject:
   - component: {fileID: 3933377236770856499}
   - component: {fileID: 6411628423047974302}
   - component: {fileID: 2075428306487920288}
-  - component: {fileID: 8684994082964422889}
-  m_Layer: 0
+  - component: {fileID: 4157338647632849870}
+  m_Layer: 9
   m_Name: Obstacle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!208 &8684994082964422889
+--- !u!208 &4157338647632849870
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,8 +378,8 @@ GameObject:
   - component: {fileID: 3427233434006546824}
   - component: {fileID: 5989947391763745809}
   - component: {fileID: 9030150284136922845}
-  - component: {fileID: 2676204968279372044}
-  m_Layer: 0
+  - component: {fileID: 7880882850413294988}
+  m_Layer: 9
   m_Name: Obstacle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!208 &2676204968279372044
+--- !u!208 &7880882850413294988
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9218658605875365053}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OBSTACLES2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

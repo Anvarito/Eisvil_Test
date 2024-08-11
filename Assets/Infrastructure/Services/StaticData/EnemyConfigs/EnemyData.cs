@@ -7,6 +7,7 @@ namespace Infrastructure.Services.StaticData.EnemyConfigs
     public class EnemyData
     {
         public EEnemyType EnemyType;
+        public int KillPoints;
         public int HitPoints;
         public float DetectRadius;
         public float ShootDistance;

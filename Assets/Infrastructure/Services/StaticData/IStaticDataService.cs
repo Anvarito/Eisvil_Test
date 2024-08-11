@@ -9,7 +9,7 @@ namespace Infrastructure.Services.StaticData
     {
         LevelConfig ForLevel(int id);
         public PlayerConfigs.PlayerMoveConfig PlayerMoveConfig { get; }
-        public PlayerConfigs.PlayerHitPointsConfig PlayerHitPointsConfig { get; }
+        public PlayerConfigs.HitPointsConfig PlayerHitPointsConfig { get; }
         Dictionary<int, LevelConfig> Levels { get; }
         Dictionary<EEnemyType, EnemyData> Enemies { get; }
     }

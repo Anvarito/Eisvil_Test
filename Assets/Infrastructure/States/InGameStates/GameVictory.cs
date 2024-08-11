@@ -15,19 +15,16 @@ namespace Infrastructure.States.InGameStates
         private readonly ILevelProgressService _levelProgressService;
         private readonly ILoggingService _loggingService;
         private MainStateMachine _mainStateMachine;
-        private readonly PlayerController _playerController;
         private VictoryScreen _victoryScreen;
 
         public GameVictory(
             MainStateMachine mainStateMachine
-            , PlayerController playerController
             , IAssetLoader assetLoader
             , ILevelProgressService levelProgressService
             , ILoggingService loggingService
         )
         {
             _mainStateMachine = mainStateMachine;
-            _playerController = playerController;
             _assetLoader = assetLoader;
             _levelProgressService = levelProgressService;
             _loggingService = loggingService;
@@ -40,7 +37,6 @@ namespace Infrastructure.States.InGameStates
         public void Enter()
         {
             _levelProgressService.SaveLevelProgressNumber();
-            _playerController.DisableControl();
             _victoryScreen = _assetLoader.Instantiate<VictoryScreen>(AssetPaths.VictoryCanvas);
             _victoryScreen.OnCLick += ClaimPush;
         }

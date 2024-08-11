@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2487321291506548009}
-  - component: {fileID: -5491391073416448946}
   - component: {fileID: 2087347935441593831}
   - component: {fileID: 7154384828837778016}
   - component: {fileID: 1730492992408236547}
   - component: {fileID: 2361493981608865556}
+  - component: {fileID: 4953479420360681028}
   m_Layer: 0
   m_Name: EnemyGround
   m_TagString: Untagged
@@ -37,20 +37,6 @@ Transform:
   - {fileID: 5739014528340794447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5491391073416448946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7773820245239269104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01bf244f7608de74f9bcfdec9c7dff9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyShoot: {fileID: 2087347935441593831}
-  _damageRecivier: {fileID: 7154384828837778016}
 --- !u!114 &2087347935441593831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +105,22 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4953479420360681028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773820245239269104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6a324fdec142fe805fa85c2c4bd34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyShoot: {fileID: 2087347935441593831}
+  _damageRecivier: {fileID: 7154384828837778016}
 --- !u!1 &8949129046325525599
 GameObject:
   m_ObjectHideFlags: 0

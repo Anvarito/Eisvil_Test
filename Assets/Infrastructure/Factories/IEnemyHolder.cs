@@ -5,6 +5,6 @@ namespace Infrastructure.Factories
 {
     public interface IEnemyHolder
     {
-        public List<EnemyView> Enemies { get; }
+        public Dictionary<IHealth, EnemyView> Enemies { get; }
     }
 }

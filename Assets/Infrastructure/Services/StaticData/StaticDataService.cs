@@ -15,7 +15,7 @@ namespace Infrastructure.Services.StaticData
         public Dictionary<EEnemyType, EnemyData> Enemies { get; private set;}
         public LevelConfig CurrentLevelConfig { get; private set; }
         public PlayerMoveConfig PlayerMoveConfig { get; private set; }
-        public PlayerHitPointsConfig PlayerHitPointsConfig { get; private set; }
+        public HitPointsConfig PlayerHitPointsConfig { get; private set; }
 
         public StaticDataService()
         {
@@ -39,7 +39,7 @@ namespace Infrastructure.Services.StaticData
             PlayerMoveConfig = Resources.Load<PlayerMoveConfig>(AssetPaths.PlayerMoveData);
 
         public void LoadPlayerHitPointsConfig()=>
-            PlayerHitPointsConfig = Resources.Load<PlayerHitPointsConfig>(AssetPaths.PlayerHitPointsData);
+            PlayerHitPointsConfig = Resources.Load<HitPointsConfig>(AssetPaths.PlayerHitPointsData);
 
         public void LoadEnemyConfig()
         {

@@ -16,7 +16,7 @@ namespace Infrastructure.Services.NavMeshBuild
         public void RebuildNavMesh()
         {
             Object.Instantiate(_currentLevelConfig.CurrentLevelConfig.Obstacles);
-            NavMeshSurface navMeshSurface = GameObject.FindObjectOfType<NavMeshSurface>();
+            NavMeshSurface navMeshSurface = GameObject.Find("NavmeshGrond").GetComponent<NavMeshSurface>();
             navMeshSurface.BuildNavMesh();
         }
         public void CleanUp()

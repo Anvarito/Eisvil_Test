@@ -1,8 +1,11 @@
 using Infrastructure.Factories.Interfaces;
 using Infrastructure.Services.PointGoal;
+using Infrastructure.Services.TimerServices;
 using Infrastructure.States.Interfaces;
 using Infrastructure.States.StateMachines;
 using Player;
+using UnityEngine;
+using Zenject;
 
 namespace Infrastructure.States.InGameStates
 {
@@ -11,7 +14,9 @@ namespace Infrastructure.States.InGameStates
         private IPointScoreService _pointScoreService;
         private readonly IEnemyFactory _enemyFactory;
         private readonly ExitTrigger _exitTrigger;
-        private readonly PlayerController _playerController;
+        private readonly MoveBlocker _moveBlocker;
+        private readonly Health _playerHealth;
+        private readonly IStartTimerService _startTimerService;
         private GameStateMachine _gameStateMachine;
 
 
@@ -20,22 +25,28 @@ namespace Infrastructure.States.InGameStates
             IPointScoreService pointScoreService, 
             IEnemyFactory enemyFactory,
             ExitTrigger exitTrigger,
-            PlayerController playerController)
+            MoveBlocker moveBlocker,
+            [Inject(Id="Player health")] Health health,
+            IStartTimerService startTimerService)
         {
             _gameStateMachine = gameStateMachine;
             _pointScoreService = pointScoreService;
             _enemyFactory = enemyFactory;
             _exitTrigger = exitTrigger;
-            _playerController = playerController;
-
-            _playerController.OnDead += OnPlayerDead;
-            _enemyFactory.OnAllEnemyDead += AllEnemyDead;
-            _exitTrigger.OnPlayerReachExit += PlayerReachExit;
+            _moveBlocker = moveBlocker;
+            _playerHealth = health;
+            _startTimerService = startTimerService;
         }
 
-        private void OnPlayerDead()
+        private void StartTimerOut()
         {
-            _playerController.OnDead -= OnPlayerDead;
+            _startTimerService.OnTimerOut -= StartTimerOut;
+            _moveBlocker.EnableControl();
+        }
+
+        private void OnPlayerDead(IHealth health)
+        {
+            health.OnDead -= OnPlayerDead;
             _gameStateMachine.Enter<GameLoose>();
         }
 
@@ -51,15 +62,20 @@ namespace Infrastructure.States.InGameStates
         public void Exit()
         {
             _pointScoreService.CleanUp();
-            _playerController.OnDead -= OnPlayerDead;
+            _moveBlocker.DisableControl();
+            
+            _playerHealth.OnDead -= OnPlayerDead;
             _enemyFactory.OnAllEnemyDead -= AllEnemyDead;
             _exitTrigger.OnPlayerReachExit -= PlayerReachExit;
+            _startTimerService.OnTimerOut -= StartTimerOut;
         }
 
         public void Enter()
         {
+            _playerHealth.OnDead += OnPlayerDead;
+            _enemyFactory.OnAllEnemyDead += AllEnemyDead;
+            _exitTrigger.OnPlayerReachExit += PlayerReachExit;
+            _startTimerService.OnTimerOut += StartTimerOut;
         }
-
-        
     }
 }

@@ -1,28 +1,25 @@
 using Infrastructure.Services.StaticData.EnemyConfigs;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Enemy
 {
-    public class EnemyView : MonoBehaviour
+    public abstract class EnemyView : MonoBehaviour
     {
-        [SerializeField] private EnemyShoot _enemyShoot;
-        [SerializeField] private DamageRecivier _damageRecivier;
+        [SerializeField] protected EnemyShoot _enemyShoot;
+        [SerializeField] protected DamageRecivier _damageRecivier;
 
-        public UnityAction<EnemyView> OnDead;
-
-        private IHitPoints _hitPoints;
-        private Transform _playerTarget;
-        private EnemyData _enemyStaticData;
-        private IEnemyMoveController _enemyMoveController;
+        protected IHealth _health;
+        protected Transform _playerTarget;
+        protected EnemyData _enemyStaticData;
+        protected IEnemyMoveController _enemyMoveController;
         
         private float _moveDistance;
         private bool _isPlayerDetected;
 
-        public void Init(IHitPoints hitPoints, Transform target, EnemyData enemyStaticData,
+        public virtual void Init(IHealth health, Transform target, EnemyData enemyStaticData,
             IEnemyMoveController enemyMoveController)
         {
-            _hitPoints = hitPoints;
+            _health = health;
             _playerTarget = target;
             _enemyStaticData = enemyStaticData;
             _enemyMoveController = enemyMoveController;
@@ -31,21 +28,17 @@ namespace Enemy
             _damageRecivier.OnApplyDamage += TakeDamage;
         }
 
-        private void TakeDamage(int damageAmount)
+        protected void TakeDamage(int damageAmount)
         {
-            if (_hitPoints.DecreaseHitPoints(damageAmount) <= 0)
-            {
-                EnemyDead();
-            }
+            _health.TakeDamage(damageAmount);
         }
 
-        private void EnemyDead()
+        private void OnDestroy()
         {
-            OnDead?.Invoke(this);
-            Destroy(gameObject);
+            _damageRecivier.OnApplyDamage -= TakeDamage;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (IsPlayerDetect())
             {
@@ -60,13 +53,13 @@ namespace Enemy
             }
         }
 
-        private bool PlayerInFireRange()
+        protected bool PlayerInFireRange()
         {
             var shootDistance = Vector3.Distance(_playerTarget.position, transform.position);
             return shootDistance <= _enemyStaticData.ShootDistance;
         }
 
-        private bool IsPlayerDetect()
+        protected bool IsPlayerDetect()
         {
             if (_isPlayerDetected)
                 return true;
@@ -77,12 +70,12 @@ namespace Enemy
             return _isPlayerDetected;
         }
 
-        private void MoveBehaviour()
+        protected void MoveBehaviour()
         {
             _enemyMoveController.SetMoveTarget(_playerTarget);
         }
 
-        private void ShootBehaviour()
+        protected void ShootBehaviour()
         {
             _enemyMoveController.SetStop();
             _enemyMoveController.RotateTo(_playerTarget.position);

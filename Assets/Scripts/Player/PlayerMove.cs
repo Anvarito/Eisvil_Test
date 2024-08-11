@@ -28,22 +28,19 @@ namespace Player
         public void EnableMove()
         {
             _inputServise.OnInputDirection += Move;
-            _inputServise.OnInputDirection += Rotation;
-            _inputServise.OnInputDirection += SetAnimation;
         }
 
         public void BlockMove()
         {
             _playerView.SetAnimationSpeed(0);
-
             _inputServise.OnInputDirection -= Move;
-            _inputServise.OnInputDirection -= Rotation;
-            _inputServise.OnInputDirection -= SetAnimation;
         }
 
         private void Move(Vector3 moveDirection)
         {
             _playerView.Move(moveDirection * (_staticDataService.PlayerMoveConfig.Speed * Time.deltaTime));
+            SetAnimation(moveDirection);
+            Rotation(moveDirection);
         }
 
         private void SetAnimation(Vector3 moveDirection)

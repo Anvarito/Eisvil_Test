@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyData:
     EnemyType: 1
-    HitPoints: 10
+    KillPoints: 10
+    HitPoints: 30
+    DetectRadius: 30
+    ShootDistance: 25
+    FireRate: 1
+    MoveSpeed: 5
+    AngularSpeed: 7

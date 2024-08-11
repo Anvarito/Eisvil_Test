@@ -1,3 +1,5 @@
+using Infrastructure.Services.StaticData;
+using Infrastructure.Services.StaticData.PlayerConfigs;
 using UnityEngine;
 
 namespace Player

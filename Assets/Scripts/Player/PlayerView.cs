@@ -1,4 +1,5 @@
 using Infrastructure.Services.StaticData;
+using Infrastructure.Services.StaticData.PlayerConfigs;
 using UnityEngine;
 using Zenject;
 
@@ -8,17 +9,24 @@ namespace Player
     {
         [SerializeField] private CharacterController _controller;
         [SerializeField] private Animator _animator;
-        [SerializeField] private PlayerShoot.PlayerShoot _playerShoot;
         [SerializeField] private DamageRecivier _damageRecivier;
-        public PlayerShoot.PlayerShoot PlayerShoot => _playerShoot;
-        public DamageRecivier DamageRecivier => _damageRecivier;
     
-        private IStaticDataService _staticDataService;
+        private PlayerMoveConfig _playerMoveConfig;
+        private Health _health;
 
         [Inject]
-        private void Construct(IStaticDataService staticDataService)
+        public void SetStaticData(IStaticDataService staticDataService, [Inject(Id="Player health")] Health health, Transform spawnPoint)
         {
-            _staticDataService = staticDataService;
+            _health = health;
+            _playerMoveConfig = staticDataService.PlayerMoveConfig;
+
+            transform.position = spawnPoint.position;
+            _damageRecivier.OnApplyDamage += TakeDamage;
+        }
+
+        private void TakeDamage(int damage)
+        {
+            _health.TakeDamage(damage);
         }
 
         public void SetAnimationSpeed(float speed)
@@ -36,7 +44,7 @@ namespace Player
             direction.y = 0;
             Quaternion currentRotation = transform.rotation;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            float alpha = _staticDataService.PlayerMoveConfig.AngularSpeed * Time.deltaTime;
+            float alpha = _playerMoveConfig.AngularSpeed * Time.deltaTime;
             Quaternion newRotation = Quaternion.Slerp(currentRotation, targetRotation, alpha);
         
             transform.rotation = newRotation;

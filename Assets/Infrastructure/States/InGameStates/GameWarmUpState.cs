@@ -6,6 +6,8 @@ using Infrastructure.Services.StaticData;
 using Infrastructure.Services.TimerServices;
 using Infrastructure.States.Interfaces;
 using Infrastructure.States.StateMachines;
+using Player;
+using UnityEngine;
 
 namespace Infrastructure.States.InGameStates
 {
@@ -53,7 +55,7 @@ namespace Infrastructure.States.InGameStates
         private void CreateEnemy()
         {
             _enemyFactory.WarmUp();
-            _enemyFactory.SpawnEnemy();
+            _enemyFactory.SpawnEnemy(Object.FindObjectOfType<PlayerView>().transform);
         }
     }
 }
