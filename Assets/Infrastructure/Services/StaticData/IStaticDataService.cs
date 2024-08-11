@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Enemy;
 using Infrastructure.Services.StaticData.EnemyConfigs;
 using Infrastructure.Services.StaticData.Level;
 

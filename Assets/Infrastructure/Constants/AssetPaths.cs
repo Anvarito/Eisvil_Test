@@ -4,14 +4,13 @@ namespace Infrastructure.Constants
     {
         public const string PlayerPrefab = "General/Player";
         public const string EnemyGroundPrefab = "General/EnemyGround";
-        public const string PlayerCamera = "General/PlayerCamera";
-        public const string Cargo = "General/Enemy";
 
         //UI
         public const string PointsCanvas = "General/UI/PointsCanvas";
         public const string InputCanvas = "General/UI/InputCanvas";
         public const string JoystickCanvas = "General/UI/Joystick";
         public const string VictoryCanvas = "General/UI/VictoryCanvas";
+        public const string DefeatCanvas = "General/UI/DefeatCanvas";
         public const string StartTimer = "General/UI/StartTimerCanvas";
 
         //Static data

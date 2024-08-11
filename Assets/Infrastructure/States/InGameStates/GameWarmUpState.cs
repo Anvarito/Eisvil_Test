@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Infrastructure.Factories.Interfaces;
+using Infrastructure.Services.NavMeshBuild;
 using Infrastructure.Services.PointGoal;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.TimerServices;
@@ -15,19 +16,22 @@ namespace Infrastructure.States.InGameStates
         private readonly IEnemyFactory _enemyFactory;
         private readonly ExitTrigger _exitTrigger;
         private readonly IStartTimerService _startTimerService;
+        private readonly INavMeshRebuildService _navMeshRebuildService;
 
         public GameWarmUpState(
             GameStateMachine gameStateMachine,
             IPointScoreService pointScoreService,
             IEnemyFactory enemyFactory,
             ExitTrigger exitTrigger,
-            IStartTimerService startTimerService
+            IStartTimerService startTimerService,
+            INavMeshRebuildService navMeshRebuildService
             )
         {
             _pointScoreService = pointScoreService;
             _enemyFactory = enemyFactory;
             _exitTrigger = exitTrigger;
             _startTimerService = startTimerService;
+            _navMeshRebuildService = navMeshRebuildService;
             _gameStateMachine = gameStateMachine;
         }
 
@@ -38,6 +42,7 @@ namespace Infrastructure.States.InGameStates
 
         public async void Enter()
         {
+            _navMeshRebuildService.RebuildNavMesh();
             _startTimerService.Launch();
             CreateEnemy();
             _pointScoreService.WarmUp();

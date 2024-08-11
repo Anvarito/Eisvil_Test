@@ -1,6 +1,6 @@
 using Infrastructure.Constants;
 using Infrastructure.Services.StaticData;
-using Player.PlayerShoot;
+using Player;
 using Zenject;
 
 public class PlayerInstaller : MonoInstaller
@@ -10,27 +10,30 @@ public class PlayerInstaller : MonoInstaller
     public override void InstallBindings()
     {
         ResolveStaticDataService();
-        
         BindPlayerView();
         BindPlayerController();
         BindPlayerAim();
+        CreatePlayerFacade();
     }
-    
-    private void ResolveStaticDataService() =>
-        _staticDataService = Container.Resolve<StaticDataService>();
-    
-    private void BindPlayerView()
+
+    public void CreatePlayerFacade()
     {
         IHitPoints hitPointsPlayer = new HitPointsHolder(_staticDataService.PlayerHitPointsConfig.HitPoints);
-        Container.BindInterfacesAndSelfTo<PlayerView>().FromComponentInNewPrefabResource(AssetPaths.PlayerPrefab).AsSingle()
-            .WithArguments(hitPointsPlayer);
+        Container.Bind<PlayerController>().AsSingle()
+            .WithArguments(hitPointsPlayer).NonLazy();
     }
 
     private void BindPlayerController() =>
-        Container.Bind<PlayerMoveContoller>().AsSingle().NonLazy();
-    
+        Container.Bind<PlayerMove>().AsSingle().NonLazy();
+
+
+    private void BindPlayerView() => 
+        Container.BindInterfacesAndSelfTo<PlayerView>().FromComponentInNewPrefabResource(AssetPaths.PlayerPrefab)
+        .AsSingle().NonLazy();
+
     private void BindPlayerAim() =>
         Container.Bind<PlayerAimRotating>().AsSingle().NonLazy();
-    
-    
+
+    private void ResolveStaticDataService() =>
+        _staticDataService = Container.Resolve<StaticDataService>();
 }

@@ -17,3 +17,5 @@ MonoBehaviour:
     GroundEnemyCount: 2
     FlyEnemyCount: 0
     ExplosionEnemyCount: 0
+    Obstacles: {fileID: 9217164396871791806, guid: 9003a9f87125962448699fe06a5c71d7,
+      type: 3}

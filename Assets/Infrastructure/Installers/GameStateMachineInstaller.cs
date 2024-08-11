@@ -20,6 +20,7 @@ namespace Infrastructure.Installers
             Container.Bind<GameWarmUpState>().AsSingle().NonLazy();
             Container.Bind<GameLoop>().AsSingle().NonLazy();
             Container.Bind<GameVictory>().AsSingle().NonLazy();
+            Container.Bind<GameLoose>().AsSingle().NonLazy();
         }
     }
 }

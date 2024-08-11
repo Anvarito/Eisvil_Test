@@ -1,12 +1,14 @@
+using Enemy;
 using Infrastructure.Factories;
 using ModestTree;
+using Player;
 using UnityEngine;
 
 namespace Infrastructure.Services.ClosestEnemy
 {
     public class ClosestEnemySearcher : IService, IClosestEnemySearcher
     {
-        private Enemy _nearestTarget;
+        private EnemyView _nearestTarget;
         private float _closestDistance = float.MaxValue;
         private readonly IEnemyHolder _enemyHolder;
         private readonly PlayerView _playerView;

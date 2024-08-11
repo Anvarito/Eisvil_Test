@@ -1,8 +1,8 @@
 using Infrastructure.Factories.Interfaces;
-using Infrastructure.Services.Logging;
 using Infrastructure.Services.PointGoal;
 using Infrastructure.States.Interfaces;
 using Infrastructure.States.StateMachines;
+using Player;
 
 namespace Infrastructure.States.InGameStates
 {
@@ -11,6 +11,7 @@ namespace Infrastructure.States.InGameStates
         private IPointScoreService _pointScoreService;
         private readonly IEnemyFactory _enemyFactory;
         private readonly ExitTrigger _exitTrigger;
+        private readonly PlayerController _playerController;
         private GameStateMachine _gameStateMachine;
 
 
@@ -18,15 +19,24 @@ namespace Infrastructure.States.InGameStates
             GameStateMachine gameStateMachine, 
             IPointScoreService pointScoreService, 
             IEnemyFactory enemyFactory,
-            ExitTrigger exitTrigger)
+            ExitTrigger exitTrigger,
+            PlayerController playerController)
         {
             _gameStateMachine = gameStateMachine;
             _pointScoreService = pointScoreService;
             _enemyFactory = enemyFactory;
             _exitTrigger = exitTrigger;
+            _playerController = playerController;
 
+            _playerController.OnDead += OnPlayerDead;
             _enemyFactory.OnAllEnemyDead += AllEnemyDead;
             _exitTrigger.OnPlayerReachExit += PlayerReachExit;
+        }
+
+        private void OnPlayerDead()
+        {
+            _playerController.OnDead -= OnPlayerDead;
+            _gameStateMachine.Enter<GameLoose>();
         }
 
         private void AllEnemyDead()
@@ -41,6 +51,7 @@ namespace Infrastructure.States.InGameStates
         public void Exit()
         {
             _pointScoreService.CleanUp();
+            _playerController.OnDead -= OnPlayerDead;
             _enemyFactory.OnAllEnemyDead -= AllEnemyDead;
             _exitTrigger.OnPlayerReachExit -= PlayerReachExit;
         }

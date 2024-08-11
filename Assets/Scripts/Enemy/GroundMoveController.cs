@@ -2,7 +2,7 @@ using Infrastructure.Services.StaticData.EnemyConfigs;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Scripts.Enemy.EnemyMove
+namespace Enemy
 {
     public class GroundMoveController : IEnemyMoveController
     {

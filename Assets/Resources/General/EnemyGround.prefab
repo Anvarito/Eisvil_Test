@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2487321291506548009}
   - component: {fileID: -5491391073416448946}
-  - component: {fileID: 7154384828837778016}
   - component: {fileID: 2087347935441593831}
+  - component: {fileID: 7154384828837778016}
   - component: {fileID: 1730492992408236547}
   - component: {fileID: 2361493981608865556}
   m_Layer: 0
@@ -51,18 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyShoot: {fileID: 2087347935441593831}
   _damageRecivier: {fileID: 7154384828837778016}
---- !u!114 &7154384828837778016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7773820245239269104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7261b3a43b50f44287eddecd71500dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2087347935441593831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +66,18 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 4827230811538494460, guid: c331e09d6d9d18e4e8f9e33df2120558,
     type: 3}
   _muzzlePoint: {fileID: 2174025166708777405}
+--- !u!114 &7154384828837778016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773820245239269104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7261b3a43b50f44287eddecd71500dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1730492992408236547
 BoxCollider:
   m_ObjectHideFlags: 0

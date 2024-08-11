@@ -2,6 +2,6 @@ namespace Infrastructure.Factories
 {
     public interface IPlayerFactory
     {
-        Player Create();
+        Player.PlayerController Create();
     }
 }

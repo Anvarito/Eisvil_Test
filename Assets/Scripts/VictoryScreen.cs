@@ -1,18 +1,4 @@
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-
-public class VictoryScreen : MonoBehaviour
+public class VictoryScreen :  GameOverScreen
 {
-    [SerializeField] private Button _button;
-    public UnityAction OnCLick;
-    private void Awake()
-    {
-        _button.onClick.AddListener(Click);
-    }
-
-    private void Click()
-    {
-        OnCLick?.Invoke();
-    }
+    
 }

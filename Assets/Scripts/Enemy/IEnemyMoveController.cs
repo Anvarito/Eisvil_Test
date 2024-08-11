@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts.Enemy.EnemyMove
+namespace Enemy
 {
     public interface IEnemyMoveController
     {

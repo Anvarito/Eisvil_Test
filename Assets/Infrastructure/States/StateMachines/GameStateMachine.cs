@@ -24,6 +24,7 @@ namespace Infrastructure.States.StateMachines
                 [typeof(GameWarmUpState)]    = _gameStateFactory.CreateState<GameWarmUpState>(),
                 [typeof(GameLoop)]    = _gameStateFactory.CreateState<GameLoop>(),
                 [typeof(GameVictory)]    = _gameStateFactory.CreateState<GameVictory>(),
+                [typeof(GameLoose)]    = _gameStateFactory.CreateState<GameLoose>(),
             };
             
             Enter<GameWarmUpState>();

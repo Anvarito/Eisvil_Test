@@ -687,6 +687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 8864395797609175810}
   _animator: {fileID: 8864395798129333232}
+  _playerShoot: {fileID: 3686042379864365245}
   _damageRecivier: {fileID: 4325853645370603221}
 --- !u!114 &3686042379864365245
 MonoBehaviour:

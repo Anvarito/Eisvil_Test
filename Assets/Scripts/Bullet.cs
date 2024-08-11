@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float _speed = 10;
-    public int _destroyMilliseconds = 5000;
-    public int _damageValue = 3;
+    [SerializeField] private float _speed = 10;
+    [SerializeField] private int _destroyMilliseconds = 5000;
+    [SerializeField] private int _damageValue = 3;
     private CancellationTokenSource _cancellationTokenSource;
 
     private void Awake()

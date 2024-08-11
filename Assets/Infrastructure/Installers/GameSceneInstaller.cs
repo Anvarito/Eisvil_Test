@@ -2,6 +2,7 @@ using Infrastructure.Constants;
 using Infrastructure.Factories;
 using Infrastructure.Services.ClosestEnemy;
 using Infrastructure.Services.Input;
+using Infrastructure.Services.NavMeshBuild;
 using Infrastructure.Services.PointScore;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.TimerServices;
@@ -24,6 +25,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<InputService>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ClosestEnemySearcher>().AsSingle().NonLazy();
             Container.BindInterfacesTo<StartTimerService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<NavMeshRebuildService>().AsSingle().NonLazy();
         }
 
         private void BindEnemyFactory()

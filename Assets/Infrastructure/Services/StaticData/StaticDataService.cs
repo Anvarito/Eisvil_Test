@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Enemy;
 using Infrastructure.Constants;
 using Infrastructure.Services.StaticData.Level;
 using Infrastructure.Services.StaticData.EnemyConfigs;
@@ -46,7 +47,7 @@ namespace Infrastructure.Services.StaticData
                 .LoadAll<EnemyStaticConfig>(AssetPaths.EnemysData)
                 .Select(x => x.EnemyData)
                 .ToDictionary(x => x.EnemyType, x => x);
-            Debug.Log("Enemy data loaded");
+            Debug.Log("EnemyView data loaded");
         }
 
         public LevelConfig ForLevel(int id)

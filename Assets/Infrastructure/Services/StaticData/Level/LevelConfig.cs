@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Infrastructure.Services.StaticData.Level
@@ -10,5 +11,6 @@ namespace Infrastructure.Services.StaticData.Level
         public int GroundEnemyCount;
         public int FlyEnemyCount;
         public int ExplosionEnemyCount;
+        public GameObject Obstacles;
     }
 }

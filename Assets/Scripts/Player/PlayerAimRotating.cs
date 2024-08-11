@@ -1,41 +1,31 @@
-using Infrastructure.Factories;
 using Infrastructure.Services.ClosestEnemy;
 using Infrastructure.Services.Input;
-using Infrastructure.Services.TimerServices;
 using UnityEngine;
 
-namespace Player.PlayerShoot
+namespace Player
 {
     public class PlayerAimRotating
     {
         private readonly IInputService _inputService;
         private readonly IClosestEnemySearcher _closestEnemySearcher;
         private readonly IPlayerView _playerView;
-        private readonly IStartTimerService _startTimerService;
 
         public PlayerAimRotating(
             IInputService inputService, 
             IClosestEnemySearcher closestEnemySearcher, 
-            IPlayerView playerView,
-            IStartTimerService startTimerService)
+            IPlayerView playerView)
         {
             _inputService = inputService;
             _closestEnemySearcher = closestEnemySearcher;
             _playerView = playerView;
-            _startTimerService = startTimerService;
-
-            _startTimerService.OnTimerOut += OnStartTimerOut;
         }
-
-        ~PlayerAimRotating()
+        public void EnableAiming()
+        {
+            _inputService.OnInputDirection += Rotation;
+        } 
+        public void BlockAiming()
         {
             _inputService.OnInputDirection -= Rotation;
-        }
-        
-        private void OnStartTimerOut()
-        {
-            _startTimerService.OnTimerOut -= OnStartTimerOut;
-            _inputService.OnInputDirection += Rotation;
         }
 
         private void Rotation(Vector3 moveDirection)
@@ -43,11 +33,11 @@ namespace Player.PlayerShoot
             if (moveDirection != Vector3.zero)
                 return;
 
-            Transform closestEnemy = _closestEnemySearcher.GetClosestEnemyTransform();
-            if (closestEnemy == null)
+            Transform closestTarget = _closestEnemySearcher.GetClosestEnemyTransform();
+            if (closestTarget == null)
                 return;
             
-            _playerView.LookAtPoint(closestEnemy.position);
+            _playerView.LookAtPoint(closestTarget.position);
             
         }
     }

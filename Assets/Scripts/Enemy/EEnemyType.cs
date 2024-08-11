@@ -1,6 +1,9 @@
-public enum EEnemyType
+namespace Enemy
 {
-    Ground,
-    Fly,
-    Explosion
+    public enum EEnemyType
+    {
+        Ground,
+        Fly,
+        Explosion
+    }
 }

@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnEnemyArea : MonoBehaviour
+namespace Enemy
 {
-    [SerializeField] private Collider _collider;
-
-    public Vector3 GetSpawnPoint()
+    public class SpawnEnemyArea : MonoBehaviour
     {
-        Bounds bounds = _collider.bounds;
+        [SerializeField] private Collider _collider;
 
-        float spawnX = Random.Range(bounds.min.x, bounds.max.x);
-        float spawnZ = Random.Range(bounds.min.z, bounds.max.z);
+        public Vector3 GetSpawnPoint()
+        {
+            Bounds bounds = _collider.bounds;
 
-        Vector3 spawnPoint = new Vector3(spawnX, 0, spawnZ);
-        return spawnPoint;
+            float spawnX = Random.Range(bounds.min.x, bounds.max.x);
+            float spawnZ = Random.Range(bounds.min.z, bounds.max.z);
+
+            Vector3 spawnPoint = new Vector3(spawnX, 0, spawnZ);
+            return spawnPoint;
+        }
     }
 }

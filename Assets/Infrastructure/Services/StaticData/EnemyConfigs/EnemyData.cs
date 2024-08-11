@@ -1,4 +1,5 @@
 using System;
+using Enemy;
 
 namespace Infrastructure.Services.StaticData.EnemyConfigs
 {
