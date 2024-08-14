@@ -1,4 +1,4 @@
-using Infrastructure.Factories.Interfaces;
+using Infrastructure.Factories;
 using Infrastructure.Services.PointGoal;
 using Infrastructure.Services.TimerServices;
 using Infrastructure.States.Interfaces;

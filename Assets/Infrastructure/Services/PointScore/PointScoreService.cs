@@ -25,7 +25,6 @@ namespace Infrastructure.Services.PointScore
         {
             points += enemy.KillPoints;
             _pointsScreen.SetPoints(points);
-            Debug.Log(enemy.KillPoints + " Kill another one. Total: " + points);
         }
 
 

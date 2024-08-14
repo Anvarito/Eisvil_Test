@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Infrastructure.Factories.Interfaces
+namespace Infrastructure.Factories
 {
     public interface IEnemyFactory : IFactory
     {

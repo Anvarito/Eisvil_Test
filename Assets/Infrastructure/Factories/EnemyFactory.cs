@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using Enemy;
 using Infrastructure.Constants;
 using Infrastructure.Extras;
-using Infrastructure.Factories.Interfaces;
 using Infrastructure.Services.Assets;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.EnemyConfigs;

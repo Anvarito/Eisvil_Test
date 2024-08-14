@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Infrastructure.Factories.Interfaces;
+using Infrastructure.Factories;
 using Infrastructure.Services.NavMeshBuild;
 using Infrastructure.Services.PointGoal;
 using Infrastructure.Services.StaticData;

@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
 
-namespace Infrastructure.Factories.Interfaces
+namespace Infrastructure.Factories
 {
     public interface IFactory
     {

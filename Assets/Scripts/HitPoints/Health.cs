@@ -12,7 +12,6 @@ public class Health : IHealth
     }
     public void TakeDamage(int damageAmount)
     {
-        Debug.Log("Damage! ");
         CurrentHitPoints -= Mathf.Clamp(damageAmount,0, CurrentHitPoints);
         if (CurrentHitPoints <= 0)
         {
