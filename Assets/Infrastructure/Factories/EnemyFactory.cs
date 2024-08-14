@@ -43,42 +43,32 @@ namespace Infrastructure.Factories
 
         public void SpawnEnemy(Transform playerTransform)
         {
-            for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.GroundEnemyCount; i++)
-            {
-                EnemyView enemy = CreateEnemyView(AssetPaths.EnemyGroundPrefab);
+            SpawnEnemiesOfType(EEnemyType.Ground, _currentLevelConfig.CurrentLevelConfig.GroundEnemyCount, playerTransform, AssetPaths.EnemyGroundPrefab);
+            SpawnEnemiesOfType(EEnemyType.Explosion, _currentLevelConfig.CurrentLevelConfig.ExplosionEnemyCount, playerTransform, AssetPaths.ExplosionEnemyPrefab);
+            SpawnEnemiesOfType(EEnemyType.Fly, _currentLevelConfig.CurrentLevelConfig.FlyEnemyCount, playerTransform, AssetPaths.FlyEnemyPrefab);
+        }
 
-                EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(EEnemyType.Ground);
-                IEnemyMoveController groundMove =
-                    new EnemyMoveController(enemy.GetComponent<NavMeshAgent>(), enemyStaticData);
+        private void SpawnEnemiesOfType(EEnemyType enemyType, int count, Transform playerTransform, string prefabPath)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                EnemyView enemy = CreateEnemyView(prefabPath);
+
+                EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(enemyType);
+                IEnemyMoveController moveController;
+
+                if (enemyType == EEnemyType.Fly)
+                {
+                    moveController = new FlyEnemyMoveController(enemyStaticData, enemy.transform);
+                }
+                else
+                {
+                    moveController = new GroundEnemyMoveController(enemy.GetComponent<NavMeshAgent>(), enemyStaticData);
+                }
+
                 IHealth health = new Health(enemyStaticData.HitPoints);
                 health.OnDead += EnemyDead;
-                enemy.Init(health, playerTransform, enemyStaticData,groundMove);
-                Enemies.Add(health, enemy);
-            }
-            
-            for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.ExplosionEnemyCount; i++)
-            {
-                EnemyView enemy = CreateEnemyView(AssetPaths.ExplosionEnemyPrefab);
-
-                EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(EEnemyType.Explosion);
-                IEnemyMoveController groundMove =
-                    new EnemyMoveController(enemy.GetComponent<NavMeshAgent>(), enemyStaticData);
-                IHealth health = new Health(enemyStaticData.HitPoints);
-                health.OnDead += EnemyDead;
-                enemy.Init(health, playerTransform, enemyStaticData, groundMove);
-                Enemies.Add(health, enemy);
-            }
-            
-            for (int i = 0; i < _currentLevelConfig.CurrentLevelConfig.FlyEnemyCount; i++)
-            {
-                EnemyView enemy = CreateEnemyView(AssetPaths.FlyEnemyPrefab);
-
-                EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(EEnemyType.Fly);
-                IEnemyMoveController flyMove =
-                    new FlyEnemyMoveController( enemyStaticData, enemy.transform);
-                IHealth health = new Health(enemyStaticData.HitPoints);
-                health.OnDead += EnemyDead;
-                enemy.Init(health, playerTransform, enemyStaticData, flyMove);
+                enemy.Init(health, playerTransform, enemyStaticData, moveController);
                 Enemies.Add(health, enemy);
             }
         }
