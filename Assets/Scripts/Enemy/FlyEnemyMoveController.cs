@@ -16,9 +16,9 @@ namespace Enemy
         
         public void SetMoveTarget(Transform target)
         {
-            Vector3 direction = (_selfTransform.position - target.position ).normalized;
+            Vector3 direction = (target.position - _selfTransform.position).normalized;
             direction.y = 0;
-            _selfTransform.Translate(direction * _enemyStaticData.MoveSpeed * Time.deltaTime);
+            _selfTransform.Translate(direction * (_enemyStaticData.MoveSpeed * Time.deltaTime), Space.World);
             RotateTo(target.position);
         }
         

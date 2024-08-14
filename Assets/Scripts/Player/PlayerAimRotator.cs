@@ -28,9 +28,9 @@ namespace Player
             _inputService.OnInputDirection -= Rotation;
         }
 
-        private void Rotation(Vector3 moveDirection)
+        private void Rotation(Vector2 moveDirection)
         {
-            if (moveDirection != Vector3.zero)
+            if (moveDirection != Vector2.zero)
                 return;
 
             Transform closestTarget = _closestEnemySearcher.GetClosestEnemyTransform(_playerView.transform);

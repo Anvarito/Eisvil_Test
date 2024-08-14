@@ -13,7 +13,6 @@ namespace Player
         {
             _playerMove = moveController;
             _playerAimRotator = aimRotator;
-            
             _playerShoot = playerShoot;
             
             DisableControl();

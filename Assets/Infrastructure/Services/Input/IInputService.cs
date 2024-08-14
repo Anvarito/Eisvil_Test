@@ -5,6 +5,6 @@ namespace Infrastructure.Services.Input
 {
     public interface IInputService : IService
     {
-        public UnityAction<Vector3> OnInputDirection { get; set; }
+        public UnityAction<Vector2> OnInputDirection { get; set; }
     }
 }

@@ -36,11 +36,12 @@ namespace Player
             _inputServise.OnInputDirection -= Move;
         }
 
-        private void Move(Vector3 moveDirection)
+        private void Move(Vector2 moveDirection)
         {
-            _playerView.Move(moveDirection * (_staticDataService.PlayerMoveConfig.Speed * Time.deltaTime));
-            SetAnimation(moveDirection);
-            Rotation(moveDirection);
+            Vector3 newMoveDirection = new Vector3(moveDirection.x, 0, moveDirection.y);
+            _playerView.Move(newMoveDirection * (_staticDataService.PlayerMoveConfig.Speed * Time.deltaTime));
+            SetAnimation(newMoveDirection);
+            Rotation(newMoveDirection);
         }
 
         private void SetAnimation(Vector3 moveDirection)

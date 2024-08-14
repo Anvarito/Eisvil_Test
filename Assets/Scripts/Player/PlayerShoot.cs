@@ -16,15 +16,16 @@ namespace Player
             _inputService.OnInputDirection += OnInputDirection;
         }
 
-        private void OnInputDirection(Vector3 direction)
+        private void OnInputDirection(Vector2 direction)
         {
             if (_weapon)
-                _weapon.Shoot(direction == Vector3.zero);
+                _weapon.Shoot(direction == Vector2.zero);
         }
 
         public void EnableShooting(bool isEnable)
         {
-            _weapon.enabled = isEnable;
+            if (_weapon)
+                _weapon.enabled = isEnable;
         }
     }
 }

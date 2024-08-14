@@ -19,6 +19,7 @@ namespace Infrastructure.Installers
         private void BindServices()
         {
             Container.BindInterfacesTo<PointScoreService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<WASDinputHadler>().AsSingle().NonLazy();
             Container.BindInterfacesTo<InputService>().AsSingle().NonLazy();
             Container.BindInterfacesTo<StartTimerService>().AsSingle().NonLazy();
             Container.BindInterfacesTo<NavMeshRebuildService>().AsSingle().NonLazy();
