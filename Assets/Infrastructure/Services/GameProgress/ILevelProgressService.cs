@@ -4,5 +4,9 @@ namespace Infrastructure.Services.GameProgress
     {
         void SaveLevelProgressNumber();
         int GetLevelProgressNumber();
+
+        void SavePoints(int points);
+
+        int LoadPoints();
     }
 }

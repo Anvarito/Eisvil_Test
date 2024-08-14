@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Enemy;
 using Infrastructure.Constants;
+using Infrastructure.Extras;
 using Infrastructure.Factories.Interfaces;
 using Infrastructure.Services.Assets;
 using Infrastructure.Services.StaticData;
@@ -12,13 +14,20 @@ using UnityEngine.Events;
 
 namespace Infrastructure.Factories
 {
-    public class EnemyFactory : IEnemyFactory, IEnemyHolder
+    public class EnemyFactory : IEnemyFactory, IEnemyListHolder
     {
-        public Dictionary<IHealth, EnemyView> Enemies { get; private set; }
+        private ReactiveList<EnemyElement> _enemies = new ReactiveList<EnemyElement>();
+
+        public ReactiveList<EnemyElement> Enemies
+        {
+            get => _enemies;
+            private set => _enemies = value;
+        }
+        
         public UnityAction OnAllEnemyDead { get; set; }
 
         private float _spawnDelay;
-        private SpawnEnemyArea _spawnEnemyArea;
+        private readonly SpawnEnemyArea _spawnEnemyArea;
         private readonly ICurrentLevelConfig _currentLevelConfig;
         private readonly IStaticDataService _staticDataService;
         private readonly IAssetLoader _assetLoader;
@@ -26,18 +35,18 @@ namespace Infrastructure.Factories
         public EnemyFactory(
             ICurrentLevelConfig currentLevelConfig,
             IStaticDataService staticDataService,
-            IAssetLoader assetLoader
+            IAssetLoader assetLoader,
+            SpawnEnemyArea spawnEnemyArea
         )
         {
             _assetLoader = assetLoader;
             _currentLevelConfig = currentLevelConfig;
             _staticDataService = staticDataService;
+            _spawnEnemyArea = spawnEnemyArea;
         }
 
         public async UniTask WarmUp()
         {
-            Enemies = new Dictionary<IHealth, EnemyView>();
-            _spawnEnemyArea = Object.FindObjectOfType<SpawnEnemyArea>();
         }
 
 
@@ -52,7 +61,7 @@ namespace Infrastructure.Factories
         {
             for (int i = 0; i < count; i++)
             {
-                EnemyView enemy = CreateEnemyView(prefabPath);
+                EnemyView enemy = CreateEnemyView(prefabPath, enemyType);
 
                 EnemyData enemyStaticData = _staticDataService.Enemies.GetValueOrDefault(enemyType);
                 IEnemyMoveController moveController;
@@ -69,24 +78,28 @@ namespace Infrastructure.Factories
                 IHealth health = new Health(enemyStaticData.HitPoints);
                 health.OnDead += EnemyDead;
                 enemy.Init(health, playerTransform, enemyStaticData, moveController);
-                Enemies.Add(health, enemy);
+
+                EnemyElement enemyElement = new EnemyElement(health, enemy, enemyStaticData.KillPoints);
+                _enemies.Add(enemyElement);
             }
         }
 
-        private EnemyView CreateEnemyView(string prefabPath)
+        private EnemyView CreateEnemyView(string prefabPath, EEnemyType enemyType)
         {
             EnemyView enemy = _assetLoader.Instantiate<EnemyView>(prefabPath);
             enemy.transform.position = _spawnEnemyArea.GetSpawnPoint();
             enemy.transform.rotation = Quaternion.Euler(0, Random.rotation.eulerAngles.y, 0);
-            enemy.transform.name = "Enemy " + Random.Range(0, 999);
+            enemy.transform.name = "Enemy " + enemyType + " " + Random.Range(0, 999);
             return enemy;
         }
 
         private void EnemyDead(IHealth health)
         {
             health.OnDead -= EnemyDead;
-            Object.Destroy(Enemies[health].gameObject);
-            Enemies.Remove(health);
+            var enemyToRemove = _enemies.FirstOrDefault(x => x.Health == health);
+            Object.Destroy(enemyToRemove.View.gameObject);
+            _enemies.Remove(enemyToRemove);
+                
 
             if (IsAllEnemyDead())
                 OnAllEnemyDead?.Invoke();
@@ -94,14 +107,13 @@ namespace Infrastructure.Factories
 
         private bool IsAllEnemyDead()
         {
-            return Enemies.Count == 0;
+            return !_enemies.Any();
         }
 
         public void CleanUp()
         {
-            Enemies.Clear();
-            Enemies = null;
-            _spawnEnemyArea = null;
+            _enemies.Clear();
+            _enemies = null;
         }
     }
 }

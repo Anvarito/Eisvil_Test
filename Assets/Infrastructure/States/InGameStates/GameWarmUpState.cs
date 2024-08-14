@@ -54,7 +54,6 @@ namespace Infrastructure.States.InGameStates
 
         private void CreateEnemy()
         {
-            _enemyFactory.WarmUp();
             _enemyFactory.SpawnEnemy(Object.FindObjectOfType<PlayerView>().transform);
         }
     }

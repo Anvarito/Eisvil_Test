@@ -9,40 +9,29 @@ namespace Infrastructure.Services.ClosestEnemy
     {
         private EnemyView _nearestTarget;
         private float _closestDistance = float.MaxValue;
-        private readonly IEnemyHolder _enemyHolder;
+        private readonly IEnemyListHolder _enemyListHolder;
         
-        public ClosestEnemySearcher(IEnemyHolder enemyHolder)
+        public ClosestEnemySearcher(IEnemyListHolder enemyListHolder)
         {
-            _enemyHolder = enemyHolder;
+            _enemyListHolder = enemyListHolder;
         }
 
         public Transform GetClosestEnemyTransform(Transform originPoint)
         {
-            if (_enemyHolder.Enemies.IsEmpty())
+            if (_enemyListHolder.Enemies.IsEmpty())
                 return null;
-            
-            // for(int i =0; i < _enemyHolder.Enemies.Count; i ++)
-            // {
-            //     float distance = Vector3.Distance(_enemyHolder.Enemies[i].transform.position, originPoint.position);
-            //
-            //     if (distance < _closestDistance)
-            //     {
-            //         _closestDistance = distance;
-            //         _nearestTarget = _enemyHolder.Enemies[i];
-            //     }
-            // }
 
-            foreach (var enemy in _enemyHolder.Enemies)
+            foreach (var enemy in _enemyListHolder.Enemies)
             {
-                if(enemy.Value == null) 
+                if(enemy == null) 
                     continue;
                 
-                float distance = Vector3.Distance(enemy.Value.transform.position, originPoint.position);
+                float distance = Vector3.Distance(enemy.View.transform.position, originPoint.position);
 
                 if (distance < _closestDistance)
                 {
                     _closestDistance = distance;
-                    _nearestTarget = enemy.Value;
+                    _nearestTarget = enemy.View;
                 }
             }
 

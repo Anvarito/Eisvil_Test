@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyData:
     EnemyType: 0
-    KillPoints: 10
+    KillPoints: 20
     HitPoints: 30
     DetectRadius: 30
     ShootDistance: 25

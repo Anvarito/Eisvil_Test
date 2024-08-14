@@ -27,6 +27,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<StaticDataService>().AsSingle().NonLazy(); 
             Container.BindInterfacesTo<LevelProgressService>().AsSingle().NonLazy(); 
             Container.BindInterfacesTo<LevelNumberSaver>().AsSingle().NonLazy(); 
+            Container.BindInterfacesTo<PointCountSaver>().AsSingle().NonLazy(); 
         }
     }
 }
