@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Config:
     ID: 1
-    GroundEnemyCount: 1
+    GroundEnemyCount: 2
     FlyEnemyCount: 2
-    ExplosionEnemyCount: 1
+    ExplosionEnemyCount: 2
     Obstacles: {fileID: 9217164396871791806, guid: 9003a9f87125962448699fe06a5c71d7,
       type: 3}

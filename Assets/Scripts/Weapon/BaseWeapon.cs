@@ -6,27 +6,32 @@ namespace Weapon
     public abstract class BaseWeapon : MonoBehaviour
     {
         [SerializeField] private WeaponStaticData _weaponStaticData;
-        [SerializeField] private GameObject _bulletPrefab;
-        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] protected GameObject _bulletPrefab;
+        [SerializeField] protected Transform _spawnPoint;
     
-        private float _fireCooldown;
-        private bool _isShootAllow;
+        protected float _fireCooldown;
+        protected bool _isShootAllow;
 
         public void Shoot(bool isAllow)
         {
             _isShootAllow = isAllow;
         }
-        private void Update()
+        protected virtual void Update()
         {
             if (_isShootAllow)
             {
                 _fireCooldown += Time.deltaTime;
                 if (_fireCooldown >= _weaponStaticData.FireRate)
                 {
-                    Instantiate(_bulletPrefab, _spawnPoint.position, _spawnPoint.rotation);
+                    SpawnBullet();
                     _fireCooldown = 0;
                 }
             }
+        }
+
+        protected virtual void SpawnBullet()
+        {
+            Instantiate(_bulletPrefab, _spawnPoint.position, _spawnPoint.rotation);
         }
     }
 }

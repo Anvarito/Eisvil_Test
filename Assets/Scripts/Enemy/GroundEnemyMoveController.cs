@@ -15,10 +15,10 @@ namespace Enemy
             _enemyStaticData = enemyStaticData;
         }
         
-        public void SetMoveTarget(Transform target)
+        public void SetMoveTarget(Vector3 target)
         {
             _navMeshAgent.isStopped = false;
-            _navMeshAgent.SetDestination(target.position);
+            _navMeshAgent.SetDestination(target);
         }
         
         public void SetStop()

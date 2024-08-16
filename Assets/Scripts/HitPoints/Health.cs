@@ -1,19 +1,23 @@
+using Infrastructure.Extras;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Health : IHealth
 {
     public UnityAction<IHealth> OnDead { get; set; }
-    public int CurrentHitPoints { get; private set; }
+    public ReactiveVariable<int> CurrentHitPoints { get; private set; }
     
     public Health(int hp)
     {
-        CurrentHitPoints = hp;
+        CurrentHitPoints = new ReactiveVariable<int>
+        {
+            Value = hp
+        };
     }
     public void TakeDamage(int damageAmount)
     {
-        CurrentHitPoints -= Mathf.Clamp(damageAmount,0, CurrentHitPoints);
-        if (CurrentHitPoints <= 0)
+        CurrentHitPoints.Value -= Mathf.Clamp(damageAmount,0, CurrentHitPoints.Value);
+        if (CurrentHitPoints.Value <= 0)
         {
             Dead();
         }

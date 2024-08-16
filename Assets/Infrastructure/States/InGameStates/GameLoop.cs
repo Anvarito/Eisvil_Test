@@ -9,10 +9,10 @@ using Zenject;
 
 namespace Infrastructure.States.InGameStates
 {
-    public class GameLoop: IState
+    public class GameLoop : IState
     {
         private IPointScoreService _pointScoreService;
-        private readonly IEnemyFactory _enemyFactory;
+        private readonly IEnemyListHolder _enemyListHolder;
         private readonly ExitTrigger _exitTrigger;
         private readonly MoveBlocker _moveBlocker;
         private readonly Health _playerHealth;
@@ -21,17 +21,17 @@ namespace Infrastructure.States.InGameStates
 
 
         public GameLoop(
-            GameStateMachine gameStateMachine, 
-            IPointScoreService pointScoreService, 
-            IEnemyFactory enemyFactory,
+            GameStateMachine gameStateMachine,
+            IPointScoreService pointScoreService,
+            IEnemyListHolder enemyListHolder,
             ExitTrigger exitTrigger,
             MoveBlocker moveBlocker,
-            [Inject(Id="Player health")] Health health,
+            [Inject(Id = "Player health")] Health health,
             IStartTimerService startTimerService)
         {
             _gameStateMachine = gameStateMachine;
             _pointScoreService = pointScoreService;
-            _enemyFactory = enemyFactory;
+            _enemyListHolder = enemyListHolder;
             _exitTrigger = exitTrigger;
             _moveBlocker = moveBlocker;
             _playerHealth = health;
@@ -50,10 +50,17 @@ namespace Infrastructure.States.InGameStates
             _gameStateMachine.Enter<GameLoose>();
         }
 
-        private void AllEnemyDead()
+        private void EnemyDead(Transform enemyTransform, float killPoints)
         {
-            _exitTrigger.gameObject.SetActive(true);
+            if (IsAllEnemyDead())
+                _exitTrigger.gameObject.SetActive(true);
         }
+
+        private bool IsAllEnemyDead()
+        {
+            return _enemyListHolder.Enemies.Count == 0;
+        }
+
         private void PlayerReachExit()
         {
             _gameStateMachine.Enter<GameVictory>();
@@ -63,17 +70,18 @@ namespace Infrastructure.States.InGameStates
         {
             _pointScoreService.CleanUp();
             _moveBlocker.DisableControl();
-            
+
             _playerHealth.OnDead -= OnPlayerDead;
-            _enemyFactory.OnAllEnemyDead -= AllEnemyDead;
+            _enemyListHolder.OnEnemyDead -= EnemyDead;
             _exitTrigger.OnPlayerReachExit -= PlayerReachExit;
             _startTimerService.OnTimerOut -= StartTimerOut;
         }
 
+
         public void Enter()
         {
             _playerHealth.OnDead += OnPlayerDead;
-            _enemyFactory.OnAllEnemyDead += AllEnemyDead;
+            _enemyListHolder.OnEnemyDead += EnemyDead;
             _exitTrigger.OnPlayerReachExit += PlayerReachExit;
             _startTimerService.OnTimerOut += StartTimerOut;
         }

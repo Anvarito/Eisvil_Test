@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8880535172105425713}
   - component: {fileID: 7682740807168115010}
   m_Layer: 0
-  m_Name: SK_Veh_Truck_Fuel_01
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,6 +83,74 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4413918122257638957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7824699163656535603}
+  - component: {fileID: 1938017736255657891}
+  - component: {fileID: 3094701279725604769}
+  m_Layer: 10
+  m_Name: Ramming
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7824699163656535603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413918122257638957}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.42, z: 0}
+  m_LocalScale: {x: 3.2625, y: 2.125, z: 8.557499}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6179625768238436917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1938017736255657891
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413918122257638957}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3094701279725604769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413918122257638957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9c7fd9e95110042867aa916c515a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selfDamageRecivier: {fileID: 7058182102028117832}
+  _selfDamageAmount: 2147483647
 --- !u!1 &6964545258701985381
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,11 +160,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6179625768238436917}
-  - component: {fileID: 8107650520273955450}
+  - component: {fileID: 3168065453003501299}
   - component: {fileID: 7058182102028117832}
   - component: {fileID: 467126641646782715}
   - component: {fileID: 6407581267123616964}
-  - component: {fileID: 7670027957166590447}
+  - component: {fileID: 8754496682165944674}
   m_Layer: 0
   m_Name: ExplosionEnemy
   m_TagString: Untagged
@@ -118,9 +186,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4222574009199774653}
+  - {fileID: 7824699163656535603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8107650520273955450
+--- !u!114 &3168065453003501299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,12 +198,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6964545258701985381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65db0552db4d1394c873270e39382cc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 01bf244f7608de74f9bcfdec9c7dff9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 4827230811538494460, guid: c331e09d6d9d18e4e8f9e33df2120558,
-    type: 3}
-  _muzzlePoint: {fileID: 0}
 --- !u!114 &7058182102028117832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +256,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
---- !u!114 &7670027957166590447
+--- !u!114 &8754496682165944674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,8 +265,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6964545258701985381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a38c104da19d94bb5bbdc829f56b80, type: 3}
+  m_Script: {fileID: 11500000, guid: c7bdfbbd302941219d23f6fee635f6eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyShoot: {fileID: 0}
-  _damageRecivier: {fileID: 7058182102028117832}

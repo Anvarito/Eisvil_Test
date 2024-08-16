@@ -1,31 +1,27 @@
-using UnityEngine;
+using Weapon;
 
 namespace Enemy
 {
-    public class EnemyShoot : MonoBehaviour
+    public class EnemyShoot
     {
-        [SerializeField] private Bullet _bulletPrefab;
-        [SerializeField] private Transform _muzzlePoint;
-
-        private float _shootDistance = 30;
-        private bool _isDetected = false;
-        private float _cooldwnTimer;
-        private float _fireRate;
-
-        public void Init(float fireRate)
+        private readonly BaseWeapon _weapon;
+        public bool HaveGun => _weapon != null;
+        public EnemyShoot(BaseWeapon weapon)
         {
-            _fireRate = fireRate;
+            _weapon = weapon;
         }
 
 
         public void Shoot()
         {
-            _cooldwnTimer += Time.deltaTime;
-            if (_cooldwnTimer >= _fireRate)
-            {
-                Instantiate(_bulletPrefab, _muzzlePoint.position, _muzzlePoint.rotation);
-                _cooldwnTimer = 0;
-            }
+            if(_weapon)
+                _weapon.Shoot(true);
+        }
+
+        public void StopShooting()
+        {
+            if(_weapon)
+                _weapon.Shoot(false);
         }
     }
 }

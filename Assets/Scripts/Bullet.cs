@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(transform.forward * _speed, Space.World);
+        transform.Translate(transform.forward * (_speed * Time.deltaTime), Space.World);
     }
 
     private async UniTask DestroyByTime()

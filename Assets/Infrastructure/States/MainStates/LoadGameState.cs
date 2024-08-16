@@ -2,7 +2,6 @@
 using Infrastructure.Services.GameProgress;
 using Infrastructure.Services.StaticData;
 using Infrastructure.States.Interfaces;
-using UnityEngine;
 
 namespace Infrastructure.States.MainStates
 {

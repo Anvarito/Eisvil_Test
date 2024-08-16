@@ -7,7 +7,7 @@ namespace Infrastructure.Services.ClosestEnemy
 {
     public class ClosestEnemySearcher : IClosestEnemySearcher
     {
-        private EnemyView _nearestTarget;
+        private Transform _nearestTarget;
         private float _closestDistance = float.MaxValue;
         private readonly IEnemyListHolder _enemyListHolder;
         
@@ -26,12 +26,12 @@ namespace Infrastructure.Services.ClosestEnemy
                 if(enemy == null) 
                     continue;
                 
-                float distance = Vector3.Distance(enemy.View.transform.position, originPoint.position);
+                float distance = Vector3.Distance(enemy.transform.position, originPoint.position);
 
                 if (distance < _closestDistance)
                 {
                     _closestDistance = distance;
-                    _nearestTarget = enemy.View;
+                    _nearestTarget = enemy.transform;
                 }
             }
 

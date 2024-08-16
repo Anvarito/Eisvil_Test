@@ -14,12 +14,12 @@ namespace Enemy
             _selfTransform = selfTransform;
         }
         
-        public void SetMoveTarget(Transform target)
+        public void SetMoveTarget(Vector3 target)
         {
-            Vector3 direction = (target.position - _selfTransform.position).normalized;
+            Vector3 direction = (target - _selfTransform.position).normalized;
             direction.y = 0;
             _selfTransform.Translate(direction * (_enemyStaticData.MoveSpeed * Time.deltaTime), Space.World);
-            RotateTo(target.position);
+            RotateTo(target);
         }
         
         public void SetStop()

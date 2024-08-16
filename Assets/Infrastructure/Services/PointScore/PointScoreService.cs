@@ -11,35 +11,34 @@ namespace Infrastructure.Services.PointScore
         private readonly PointsScreen _pointsScreen;
         private readonly ILevelProgressService _levelProgressService;
 
-        private int points = 0;
+        private int _points = 0;
         
         public PointScoreService(IEnemyListHolder enemyListHolder, PointsScreen pointsScreen, ILevelProgressService levelProgressService)
         {
             _enemyListHolder = enemyListHolder;
             _pointsScreen = pointsScreen;
             _levelProgressService = levelProgressService;
-            _enemyListHolder.Enemies.OnElementRemove += EnemyDestroy;
+            _enemyListHolder.OnEnemyDead += EnemyDestroy;
         }
 
-        private void EnemyDestroy(EnemyElement enemy)
+        private void EnemyDestroy(Transform enemyTransform, float killPoints)
         {
-            points += enemy.KillPoints;
-            _pointsScreen.SetPoints(points);
+            _points += (int)killPoints;
+            _pointsScreen.SetPoints(_points);
         }
-
 
         public void WarmUp()
         {
-            points = _levelProgressService.LoadPoints();
-            _pointsScreen.SetPoints(points);
+            _points = _levelProgressService.LoadPoints();
+            _pointsScreen.SetPoints(_points);
         }
 
 
         public void CleanUp()
         {
-            _levelProgressService.SavePoints(points);
-            _enemyListHolder.Enemies.OnElementRemove -= EnemyDestroy;
-            points = 0;
+            _levelProgressService.SavePoints(_points);
+            _enemyListHolder.OnEnemyDead -= EnemyDestroy;
+            _points = 0;
         }
 
         
